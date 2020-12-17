@@ -5,22 +5,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import com.example.mareu.dummy.DummyContent.DummyItem;
-import com.example.mareu.model.Reunion;
+import com.example.mareu.model.Meeting;
 
 import java.util.List;
 
-/**
- * {@link RecyclerView.Adapter} that can display a {@link DummyItem}.
- * TODO: Replace the implementation with code for your data type.
- */
 public class MyReunionItemRecyclerViewAdapter extends RecyclerView.Adapter<MyReunionItemRecyclerViewAdapter.ViewHolder> {
 
-    private final List<Reunion> mValues;
+    private final List<Meeting> mValues;
 
-    public MyReunionItemRecyclerViewAdapter(List<Reunion> items) {
+    public MyReunionItemRecyclerViewAdapter(List<Meeting> items) {
         mValues = items;
     }
 
@@ -50,7 +44,7 @@ public class MyReunionItemRecyclerViewAdapter extends RecyclerView.Adapter<MyReu
         public final View mView;
         //public final TextView mIdView;
         //public final TextView mContentView;
-        public Reunion mItem;
+        public Meeting mItem;
 
         public ViewHolder(View view) {
             super(view);
