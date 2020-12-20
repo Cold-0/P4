@@ -1,8 +1,6 @@
 package com.example.mareu.model;
 
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+import android.graphics.Color;
 import java.util.List;
 
 public class Meeting {
@@ -10,22 +8,40 @@ public class Meeting {
     private String mTime;
     private String mRoom;
     private String mSubject;
+    private int mColor;
     private List<String> mParticipants;
 
-    public Meeting(String date, String time, String room, String subject, List<String> participants) {
+    public Meeting(String date, String time, String room, String subject, int color, List<String> participants) {
         mDate = date;
         mTime = time;
         mRoom = room;
         mSubject = subject;
+        mColor = color;
         mParticipants = participants;
     }
 
-    public String getLocation() {
+    public String getDate() {
+        return mDate;
+    }
+
+    public void setDate(String date) {
+        mDate = date;
+    }
+
+    public String getTime() {
+        return mTime;
+    }
+
+    public void setTime(String time) {
+        mTime = time;
+    }
+    
+    public String getRoom() {
         return mRoom;
     }
 
-    public void setLocation(String location) {
-        mRoom = location;
+    public void setRoom(String room) {
+        mRoom = room;
     }
 
     public String getSubject() {
@@ -36,6 +52,14 @@ public class Meeting {
         mSubject = subject;
     }
 
+    public int getColor() {
+        return mColor;
+    }
+
+    public void setColor(int color) {
+        mColor = color;
+    }
+
     public List<String> getParticipants() {
         return mParticipants;
     }
@@ -43,4 +67,5 @@ public class Meeting {
     public void setParticipants(List<String> participants) {
         mParticipants = participants;
     }
+
 }

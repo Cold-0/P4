@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.mareu.databinding.FragmentReunionItemBinding;
 import com.example.mareu.model.Meeting;
 
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.List;
 public class MyReunionItemRecyclerViewAdapter extends RecyclerView.Adapter<MyReunionItemRecyclerViewAdapter.ViewHolder> {
 
     private final List<Meeting> mValues;
+    public FragmentReunionItemBinding binding;
 
     public MyReunionItemRecyclerViewAdapter(List<Meeting> items) {
         mValues = items;
@@ -20,17 +22,16 @@ public class MyReunionItemRecyclerViewAdapter extends RecyclerView.Adapter<MyReu
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_reunion_item, parent, false);
-        return new ViewHolder(view);
+        return new ViewHolder(
+                FragmentReunionItemBinding.inflate(LayoutInflater.from(parent.getContext()))
+        );
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-
-
-
-        //holder.mItem = mValues.get(position);
+        holder.mMeeting = mValues.get(position);
+        //holder.mBinding.subjectMeeting.setText(holder.mMeeting.getSubject());
+        //holder.mBinding.colorMeeting.setColorFilter(holder.mMeeting.getColor());
         //holder.mIdView.setText(mValues.get(position).id);
         //holder.mContentView.setText(mValues.get(position).content);
     }
@@ -41,16 +42,12 @@ public class MyReunionItemRecyclerViewAdapter extends RecyclerView.Adapter<MyReu
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public final View mView;
-        //public final TextView mIdView;
-        //public final TextView mContentView;
-        public Meeting mItem;
+        public FragmentReunionItemBinding mBinding;
+        public Meeting mMeeting;
 
-        public ViewHolder(View view) {
-            super(view);
-            mView = view;
-            //mIdView = (TextView) view.findViewById(R.id.item_number);
-            //mContentView = (TextView) view.findViewById(R.id.content);
+        public ViewHolder(FragmentReunionItemBinding binding) {
+            super(binding.getRoot());
+            mBinding = binding;
         }
     }
 }
