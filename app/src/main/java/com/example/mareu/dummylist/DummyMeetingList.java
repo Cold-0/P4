@@ -11,6 +11,8 @@ import java.util.Random;
 
 public abstract class DummyMeetingList {
 
+    private static final Random r = new Random();
+
     public static List<Meeting> DUMMY_MEETINGS = Arrays.asList(
             new Meeting("19/07/2020", "08:40:00", "4", "Choix de la nouvelle application", getRandomColor(),
                         Arrays.asList("jean@email.com", "lea@email.com", "nina@email.com")),
@@ -42,7 +44,6 @@ public abstract class DummyMeetingList {
 
     private static int getRandomColor()
     {
-        Random r = new Random();
-        return Color.HSVToColor(new float[]{ r.nextFloat(), 0.75f, 0.75f } );
+        return Color.HSVToColor(new float[]{ r.nextFloat()*360, 0.25f, 0.75f } );
     }
 }

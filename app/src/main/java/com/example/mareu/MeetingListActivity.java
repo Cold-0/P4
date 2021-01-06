@@ -1,7 +1,6 @@
 package com.example.mareu;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -9,25 +8,25 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 
-import com.example.mareu.databinding.ActivityMainListBinding;
+import com.example.mareu.databinding.ActivityMeetingListBinding;
 import com.example.mareu.dummylist.DummyMeetingList;
 import com.example.mareu.model.Meeting;
 
 import java.util.List;
 
-public class MainListActivity extends AppCompatActivity {
+public class MeetingListActivity extends AppCompatActivity {
 
     RecyclerView mRecyclerView;
-    List<Meeting> list;
-    ActivityMainListBinding binding;
+    List<Meeting> mList;
+    ActivityMeetingListBinding mBinding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityMainListBinding.inflate(getLayoutInflater());
-        View view = binding.getRoot();
+        mBinding = ActivityMeetingListBinding.inflate(getLayoutInflater());
+        View view = mBinding.getRoot();
         setContentView(view);
-        mRecyclerView = binding.meetingList;
+        mRecyclerView = mBinding.meetingList;
         initRecyclerView();
     }
 
@@ -35,7 +34,7 @@ public class MainListActivity extends AppCompatActivity {
     {
         Context context = mRecyclerView.getContext();
         mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
-        list = DummyMeetingList.generateMeetings();
-        mRecyclerView.setAdapter(new MyReunionItemRecyclerViewAdapter(list));
+        mList = DummyMeetingList.generateMeetings();
+        mRecyclerView.setAdapter(new MeetingListRecyclerViewAdapter(mList));
     }
 }
