@@ -68,7 +68,7 @@ public class MeetingListActivity extends AppCompatActivity {
         Context context = mMeetingsRecyclerView.getContext();
         mMeetingsRecyclerView.setLayoutManager(new LinearLayoutManager(context));
         mMeetingsList = GenerateMeetingList.generateMeetings();
-        mMeetingsRecyclerView.setAdapter(new MeetingListRecyclerViewAdapter(mMeetingsList));
+        mMeetingsRecyclerView.setAdapter(new MeetingListRecyclerViewAdapter(getApplicationContext(), mMeetingsList));
 
     }
 
@@ -76,7 +76,8 @@ public class MeetingListActivity extends AppCompatActivity {
     public void onRemoveMeeting(RemoveMeetingEvent event) {
         int index = mMeetingsList.indexOf(event.mMeeting);
         mMeetingsList.remove(event.mMeeting);
-        Toast.makeText(getApplicationContext(),"Delete meeting",Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), getString(R.string.delete_meeting_toast), Toast.LENGTH_SHORT).show();
+        // TODO add a popup asking for confirmation
         mMeetingsRecyclerView.getAdapter().notifyItemRemoved(index);
     }
 }

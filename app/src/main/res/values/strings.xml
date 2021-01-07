@@ -1,10 +1,14 @@
 <resources>
     <string name="app_name">Mareu</string>
-    <string name="accept">Accept</string>
-    <string name="cancel">Cancel</string>
-    <string name="subject">Subject</string>
+    <string name="create">Créer</string>
+    <string name="cancel">Annuler</string>
+    <string name="subject">Sujet</string>
     <string name="date">Date</string>
-    <string name="time">Time</string>
-    <string name="room">Room</string>
+    <string name="time">Horaire</string>
+    <string name="room">Salle</string>
+    <string name="item_meeting_subject_format">%1$s - %2$s - Salle %3$s</string>
     <string name="participants">Participants</string>
+    <string name="delete_meeting_toast">Réunion supprimé</string>
+    <string name="add_meeting_toast_create">Réunion créer</string>
+    <string name="add_meeting_toast_cancel">Réunion supprimé</string>
 </resources>

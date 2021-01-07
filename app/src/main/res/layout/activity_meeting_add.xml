@@ -86,7 +86,7 @@
             android:layout_weight="1"
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
-            android:text="@string/accept"
+            android:text="@string/create"
             tools:ignore="ButtonStyle" />
 
         <Button

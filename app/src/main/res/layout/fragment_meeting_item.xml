@@ -17,20 +17,6 @@
         app:srcCompat="@drawable/ic_baseline_brightness_1_24" />
 
     <TextView
-        android:id="@+id/meeting_room"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="30"
-        android:textColor="#FFFFFF"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/color_meeting"
-        app:layout_constraintEnd_toEndOf="@+id/color_meeting"
-        app:layout_constraintStart_toStartOf="@+id/color_meeting"
-        app:layout_constraintTop_toTopOf="@+id/color_meeting" />
-
-    <TextView
         android:id="@+id/subject_meeting"
         android:layout_width="274dp"
         android:layout_height="29dp"

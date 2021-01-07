@@ -22,23 +22,20 @@ public class MeetingAddActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         mBinding = ActivityMeetingAddBinding.inflate(getLayoutInflater());
         View view = mBinding.getRoot();
-        setContentView(R.layout.activity_meeting_add);
+        setContentView(view);
 
         mBinding.accept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Meeting meeting = new Meeting("19/07/2020", "08h40", "4", "BOB", GenerateMeetingList.getRandomColor(),
                         Arrays.asList("jean@email.com", "lea@email.com", "nina@email.com"));
-                MeetingAddActivity.this.finish();
-                Toast.makeText(MeetingAddActivity.this.getApplicationContext(), "Accept", Toast.LENGTH_SHORT).show();
+                finish();
+                Toast.makeText(MeetingAddActivity.this.getApplicationContext(), getString(R.string.add_meeting_toast_create), Toast.LENGTH_SHORT).show();
             }
         });
-        mBinding.cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MeetingAddActivity.this.finish();
-                Toast.makeText(MeetingAddActivity.this.getApplicationContext(), "Cancel", Toast.LENGTH_SHORT).show();
-            }
+        mBinding.cancel.setOnClickListener(v -> {
+            finish();
+            Toast.makeText(MeetingAddActivity.this.getApplicationContext(), getString(R.string.add_meeting_toast_cancel), Toast.LENGTH_SHORT).show();
         });
     }
 }
