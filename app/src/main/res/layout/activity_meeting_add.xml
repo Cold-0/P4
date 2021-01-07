@@ -13,6 +13,7 @@
         android:layout_marginHorizontal="40dp"
         android:layout_marginTop="44dp"
         android:hint="@string/subject"
+        android:importantForAutofill="no"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,7 +25,8 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="40dp"
         android:layout_marginTop="16dp"
-        android:hint="Room"
+        android:hint="@string/room"
+        android:importantForAutofill="no"
         android:inputType="numberSigned"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -35,7 +37,7 @@
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:layout_marginTop="16dp"
-        android:hint="Time"
+        android:hint="@string/time"
         android:inputType="time"
         android:timePickerMode="spinner"
         app:layout_constraintEnd_toEndOf="parent"
@@ -50,7 +52,7 @@
         android:layout_marginTop="16dp"
         android:calendarViewShown="false"
         android:datePickerMode="spinner"
-        android:hint="Date"
+        android:hint="@string/date"
         android:inputType="date"
         app:layout_constraintTop_toBottomOf="@+id/meetingTime"
         tools:layout_editor_absoluteX="0dp" />
@@ -61,7 +63,8 @@
         android:layout_height="45dp"
         android:layout_marginHorizontal="40dp"
         android:layout_marginTop="16dp"
-        android:hint="Participant"
+        android:hint="@string/participants"
+        android:importantForAutofill="no"
         android:inputType="textEmailAddress"
         app:layout_constraintTop_toBottomOf="@+id/meetingDate" />
 
@@ -83,7 +86,8 @@
             android:layout_weight="1"
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
-            android:text="@string/accept" />
+            android:text="@string/accept"
+            tools:ignore="ButtonStyle" />
 
         <Button
             android:id="@+id/cancel"
@@ -93,7 +97,8 @@
             android:layout_weight="1"
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
-            android:text="@string/cancel" />
+            android:text="@string/cancel"
+            tools:ignore="ButtonStyle" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

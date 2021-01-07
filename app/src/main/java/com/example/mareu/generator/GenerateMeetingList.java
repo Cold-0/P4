@@ -42,7 +42,7 @@ public abstract class GenerateMeetingList {
 
     public static List<Meeting> generateMeetings(){return new ArrayList<>(DUMMY_MEETINGS);}
 
-    private static int getRandomColor()
+    public static int getRandomColor()
     {
         return Color.HSVToColor(new float[]{ r.nextFloat()*360, 0.25f, 0.75f } ); // use HSV to get pastel color (sat 25%, value 75%, so only varying HUE
     }

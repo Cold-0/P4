@@ -3,4 +3,8 @@
     <string name="accept">Accept</string>
     <string name="cancel">Cancel</string>
     <string name="subject">Subject</string>
+    <string name="date">Date</string>
+    <string name="time">Time</string>
+    <string name="room">Room</string>
+    <string name="participants">Participants</string>
 </resources>
