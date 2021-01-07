@@ -6,7 +6,10 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.example.mareu.databinding.FragmentMeetingItemBinding;
+import com.example.mareu.events.RemoveMeetingEvent;
 import com.example.mareu.model.Meeting;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -31,6 +34,9 @@ public class MeetingListRecyclerViewAdapter extends RecyclerView.Adapter<Meeting
         holder.mMeeting = mValues.get(position);
         holder.mBinding.subjectMeeting.setText(holder.mMeeting.getSubject());
         holder.mBinding.colorMeeting.setColorFilter(holder.mMeeting.getColor());
+        holder.mBinding.removeMeeting.setOnClickListener(v -> {
+            EventBus.getDefault().post(new RemoveMeetingEvent(holder.mMeeting));
+        });
     }
 
     @Override

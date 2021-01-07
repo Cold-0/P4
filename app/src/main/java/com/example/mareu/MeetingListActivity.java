@@ -6,18 +6,24 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.mareu.databinding.ActivityMeetingListBinding;
 import com.example.mareu.dummylist.DummyMeetingList;
+import com.example.mareu.events.RemoveMeetingEvent;
 import com.example.mareu.model.Meeting;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.List;
 
 public class MeetingListActivity extends AppCompatActivity {
 
-    RecyclerView mRecyclerView;
-    List<Meeting> mList;
+    RecyclerView mMeetingsRecyclerView;
+    List<Meeting> mMeetingsList;
     ActivityMeetingListBinding mBinding;
 
     @Override
@@ -26,15 +32,42 @@ public class MeetingListActivity extends AppCompatActivity {
         mBinding = ActivityMeetingListBinding.inflate(getLayoutInflater());
         View view = mBinding.getRoot();
         setContentView(view);
-        mRecyclerView = mBinding.meetingList;
+        mMeetingsRecyclerView = mBinding.meetingList;
+
         initRecyclerView();
+        initList();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
     }
 
     private void initRecyclerView()
     {
-        Context context = mRecyclerView.getContext();
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
-        mList = DummyMeetingList.generateMeetings();
-        mRecyclerView.setAdapter(new MeetingListRecyclerViewAdapter(mList));
+        Context context = mMeetingsRecyclerView.getContext();
+        mMeetingsRecyclerView.setLayoutManager(new LinearLayoutManager(context));
+
+    }
+
+    private void initList()
+    {
+        mMeetingsList = DummyMeetingList.generateMeetings();
+        mMeetingsRecyclerView.setAdapter(new MeetingListRecyclerViewAdapter(mMeetingsList));
+    }
+
+    @Subscribe
+    public void onRemoveMeeting(RemoveMeetingEvent event) {
+        int index = mMeetingsList.indexOf(event.mMeeting);
+        mMeetingsList.remove(event.mMeeting);
+        Toast.makeText(getApplicationContext(),"Delete meeting",Toast.LENGTH_SHORT).show();
+        mMeetingsRecyclerView.getAdapter().notifyItemRemoved(index);
     }
 }
