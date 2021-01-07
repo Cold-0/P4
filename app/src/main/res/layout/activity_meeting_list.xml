@@ -11,11 +11,12 @@
         android:id="@+id/meeting_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
-        tools:listitem="@layout/fragment_meeting_item" />
+        tools:listitem="@layout/fragment_meeting_item"
+        android:paddingBottom="80dp"
+        android:clipToPadding="false" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/meeting_add_button"
+        android:id="@+id/add_meeting_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"

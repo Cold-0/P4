@@ -32,7 +32,17 @@ public class MeetingListRecyclerViewAdapter extends RecyclerView.Adapter<Meeting
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mMeeting = mValues.get(position);
-        holder.mBinding.subjectMeeting.setText(holder.mMeeting.getSubject());
+        holder.mBinding.subjectMeeting.setText(String.format("%s - %s", holder.mMeeting.getTime(), holder.mMeeting.getSubject()));
+        StringBuilder participantListStringBuilder = new StringBuilder();
+        int size = holder.mMeeting.getParticipants().size();
+        for (String participant: holder.mMeeting.getParticipants()) {
+            participantListStringBuilder.append(participant);
+            size--;
+            if(size > 0)
+             participantListStringBuilder.append(", ");
+        }
+        holder.mBinding.meetingRoom.setText(holder.mMeeting.getRoom());
+        holder.mBinding.participantsMeeting.setText(participantListStringBuilder.toString());
         holder.mBinding.colorMeeting.setColorFilter(holder.mMeeting.getColor());
         holder.mBinding.removeMeeting.setOnClickListener(v -> {
             EventBus.getDefault().post(new RemoveMeetingEvent(holder.mMeeting));

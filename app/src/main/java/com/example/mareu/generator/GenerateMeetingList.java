@@ -1,4 +1,4 @@
-package com.example.mareu.dummylist;
+package com.example.mareu.generator;
 
 import android.graphics.Color;
 
@@ -9,34 +9,34 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-public abstract class DummyMeetingList {
+public abstract class GenerateMeetingList {
 
     private static final Random r = new Random();
 
     public static List<Meeting> DUMMY_MEETINGS = Arrays.asList(
-            new Meeting("19/07/2020", "08:40:00", "4", "Choix de la nouvelle application", getRandomColor(),
+            new Meeting("19/07/2020", "08h40", "4", "Choix de la nouvelle application", getRandomColor(),
                         Arrays.asList("jean@email.com", "lea@email.com", "nina@email.com")),
-            new Meeting("21/07/2020", "14:00:00", "1", "Mockup de la chartre graphique", getRandomColor(),
+            new Meeting("21/07/2020", "14h00", "1", "Mockup de la chartre graphique", getRandomColor(),
                     Arrays.asList("bob@email.com", "juan@email.com")),
-            new Meeting("21/07/2020", "15:00:00", "1", "Finalisation du plan", getRandomColor(),
+            new Meeting("21/07/2020", "15h00", "1", "Finalisation du plan", getRandomColor(),
                     Arrays.asList("jean@email.com", "lea@email.com", "nina@email.com", "bob@email.com", "juan@email.com")),
-            new Meeting("22/07/2020", "08:40:00", "4", "Choix de la nouvelle application", getRandomColor(),
+            new Meeting("22/07/2020", "08h40", "4", "Choix de la nouvelle application", getRandomColor(),
                     Arrays.asList("jean@email.com", "lea@email.com", "nina@email.com")),
-            new Meeting("22/07/2020", "14:00:00", "1", "Mockup de la chartre graphique", getRandomColor(),
+            new Meeting("22/07/2020", "14h00", "1", "Mockup de la chartre graphique", getRandomColor(),
                     Arrays.asList("bob@email.com", "juan@email.com")),
-            new Meeting("23/07/2020", "15:00:00", "1", "Finalisation du plan", getRandomColor(),
+            new Meeting("23/07/2020", "15h00", "1", "Finalisation du plan", getRandomColor(),
                     Arrays.asList("jean@email.com", "lea@email.com", "nina@email.com", "bob@email.com", "juan@email.com")),
-            new Meeting("28/07/2020", "08:40:00", "4", "Choix de la nouvelle application", getRandomColor(),
+            new Meeting("28/07/2020", "08h40", "4", "Choix de la nouvelle application", getRandomColor(),
                     Arrays.asList("jean@email.com", "lea@email.com", "nina@email.com")),
-            new Meeting("28/07/2020", "14:00:00", "1", "Mockup de la chartre graphique", getRandomColor(),
+            new Meeting("28/07/2020", "14h00", "1", "Mockup de la chartre graphique", getRandomColor(),
                     Arrays.asList("bob@email.com", "juan@email.com")),
-            new Meeting("28/07/2020", "15:00:00", "1", "Finalisation du plan", getRandomColor(),
+            new Meeting("28/07/2020", "15h00", "1", "Finalisation du plan", getRandomColor(),
                     Arrays.asList("jean@email.com", "lea@email.com", "nina@email.com", "bob@email.com", "juan@email.com")),
-            new Meeting("01/08/2020", "08:40:00", "4", "Choix de la nouvelle application", getRandomColor(),
+            new Meeting("01/08/2020", "08h40", "4", "Choix de la nouvelle application", getRandomColor(),
                     Arrays.asList("jean@email.com", "lea@email.com", "nina@email.com")),
-            new Meeting("01/08/2020", "14:00:00", "1", "Mockup de la chartre graphique", getRandomColor(),
+            new Meeting("01/08/2020", "14h00", "1", "Mockup de la chartre graphique", getRandomColor(),
                     Arrays.asList("bob@email.com", "juan@email.com")),
-            new Meeting("16/08/2020", "15:00:00", "1", "Finalisation du plan", getRandomColor(),
+            new Meeting("16/08/2020", "15h00", "1", "Finalisation du plan", getRandomColor(),
                     Arrays.asList("jean@email.com", "lea@email.com", "nina@email.com", "bob@email.com", "juan@email.com"))
     );
 
@@ -44,6 +44,6 @@ public abstract class DummyMeetingList {
 
     private static int getRandomColor()
     {
-        return Color.HSVToColor(new float[]{ r.nextFloat()*360, 0.25f, 0.75f } );
+        return Color.HSVToColor(new float[]{ r.nextFloat()*360, 0.25f, 0.75f } ); // use HSV to get pastel color (sat 25%, value 75%, so only varying HUE
     }
 }

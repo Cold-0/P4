@@ -5,13 +5,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
 import android.widget.Toast;
 
 import com.example.mareu.databinding.ActivityMeetingListBinding;
-import com.example.mareu.dummylist.DummyMeetingList;
+import com.example.mareu.generator.GenerateMeetingList;
 import com.example.mareu.events.RemoveMeetingEvent;
 import com.example.mareu.model.Meeting;
 
@@ -35,7 +35,14 @@ public class MeetingListActivity extends AppCompatActivity {
         mMeetingsRecyclerView = mBinding.meetingList;
 
         initRecyclerView();
-        initList();
+        initButtons();
+    }
+
+    private void initButtons() {
+        mBinding.addMeetingButton.setOnClickListener(v -> {
+            Intent intent = new Intent(this, MeetingAddActivity.class);
+            startActivity(intent);
+        });
     }
 
     @Override
@@ -50,17 +57,19 @@ public class MeetingListActivity extends AppCompatActivity {
         EventBus.getDefault().unregister(this);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mMeetingsRecyclerView.getAdapter().notifyDataSetChanged();
+    }
+
     private void initRecyclerView()
     {
         Context context = mMeetingsRecyclerView.getContext();
         mMeetingsRecyclerView.setLayoutManager(new LinearLayoutManager(context));
-
-    }
-
-    private void initList()
-    {
-        mMeetingsList = DummyMeetingList.generateMeetings();
+        mMeetingsList = GenerateMeetingList.generateMeetings();
         mMeetingsRecyclerView.setAdapter(new MeetingListRecyclerViewAdapter(mMeetingsList));
+
     }
 
     @Subscribe
