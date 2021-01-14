@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.mareu.databinding.ActivityMeetingAddBinding;
@@ -24,6 +26,8 @@ public class MeetingAddActivity extends AppCompatActivity {
         View view = mBinding.getRoot();
         setContentView(view);
 
+        setSpinner();
+
         mBinding.accept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -37,5 +41,14 @@ public class MeetingAddActivity extends AppCompatActivity {
             finish();
             Toast.makeText(MeetingAddActivity.this.getApplicationContext(), getString(R.string.add_meeting_toast_cancel), Toast.LENGTH_SHORT).show();
         });
+    }
+
+    private void setSpinner()
+    {
+        Spinner spinner = mBinding.meetingRoom;
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.meeting_room_names_array, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
     }
 }

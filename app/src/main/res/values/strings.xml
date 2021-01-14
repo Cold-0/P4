@@ -15,4 +15,16 @@
     <string name="delete_meeting_confirmation_title">Are you sure you want to delete this meeting ?</string>
     <string name="delete_meeting_confirm">OK</string>
     <string name="delete_meeting_cancel">Cancel</string>
+    <string-array name="meeting_room_names_array">
+        <item>Salle 1</item>
+        <item>Salle 2</item>
+        <item>Salle 3</item>
+        <item>Salle 4</item>
+        <item>Salle 5</item>
+        <item>Salle 6</item>
+        <item>Salle 7</item>
+        <item>Salle 8</item>
+        <item>Salle 9</item>
+        <item>Salle 10</item>
+    </string-array>
 </resources>
