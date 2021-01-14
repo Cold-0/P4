@@ -79,8 +79,8 @@ public class MeetingListActivity extends AppCompatActivity {
         AlertDialog.Builder adb = new AlertDialog.Builder(this);
         adb.setCancelable(false);
         //adb.setView(alertDialogView);
-        adb.setTitle("Are you sure you want to delete this meeting ?");
-        adb.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        adb.setTitle(getString(R.string.delete_meeting_confirmation_title));
+        adb.setPositiveButton(R.string.delete_meeting_confirm, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 int index = mMeetingsList.indexOf(event.mMeeting);
                 mMeetingsList.remove(event.mMeeting);
@@ -88,7 +88,7 @@ public class MeetingListActivity extends AppCompatActivity {
                 mMeetingsRecyclerView.getAdapter().notifyItemRemoved(index);
             }
         });
-        adb.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        adb.setNegativeButton(R.string.delete_meeting_cancel, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 Toast.makeText(getApplicationContext(), getString(R.string.cancel_delete_meeting_toast), Toast.LENGTH_SHORT).show();
             }

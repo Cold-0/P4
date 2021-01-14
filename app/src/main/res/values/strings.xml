@@ -12,4 +12,7 @@
     <string name="add_meeting_toast_create">Réunion créer</string>
     <string name="add_meeting_toast_cancel">Réunion supprimé</string>
     <string name="cancel_delete_meeting_toast">Meeting not deleted</string>
+    <string name="delete_meeting_confirmation_title">Are you sure you want to delete this meeting ?</string>
+    <string name="delete_meeting_confirm">OK</string>
+    <string name="delete_meeting_cancel">Cancel</string>
 </resources>
