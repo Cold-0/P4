@@ -28,12 +28,10 @@ public class MeetingAddActivity extends AppCompatActivity implements DatePickerD
     TimePickerDialog mTimePickerDialog;
 
     private static final int DEFAULT_HOUR = 8;
-    private static final int DEFAULT_MINUTE = 8;
-    private static final int DEFAULT_DAY = 8;
-    private static final int DEFAULT_MONTH = 8;
-    private static final int DEFAULT_YEAR = 8;
-
-
+    private static final int DEFAULT_MINUTE = 0;
+    private static final int DEFAULT_DAY = 1;
+    private static final int DEFAULT_MONTH = 1;
+    private static final int DEFAULT_YEAR = 2021;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +59,7 @@ public class MeetingAddActivity extends AppCompatActivity implements DatePickerD
     }
 
     private void setDatePickerDialog() {
-        mDatePickerDialog = new DatePickerDialog(this, MeetingAddActivity.this, 2021, 0, 1);
+        mDatePickerDialog = new DatePickerDialog(this, MeetingAddActivity.this, DEFAULT_YEAR, DEFAULT_MONTH, DEFAULT_DAY);
         mDatePickerDialog.setCancelable(false);
         setDate(mDatePickerDialog.getDatePicker());
         mBinding.meetingDate.setOnClickListener(v -> {
@@ -70,9 +68,9 @@ public class MeetingAddActivity extends AppCompatActivity implements DatePickerD
     }
 
     private void setTimePickerDialog() {
-        mTimePickerDialog = new TimePickerDialog(this, MeetingAddActivity.this, 8, 0, true);
+        mTimePickerDialog = new TimePickerDialog(this, MeetingAddActivity.this, DEFAULT_HOUR, DEFAULT_MINUTE, true);
         mTimePickerDialog.setCancelable(false);
-        setTime(8, 0);
+        setTime(DEFAULT_HOUR, DEFAULT_MINUTE);
         mBinding.meetingTime.setOnClickListener(v -> {
             mTimePickerDialog.show();
         });
