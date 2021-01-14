@@ -1,10 +1,12 @@
 package com.example.mareu;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -74,10 +76,23 @@ public class MeetingListActivity extends AppCompatActivity {
 
     @Subscribe
     public void onRemoveMeeting(RemoveMeetingEvent event) {
-        int index = mMeetingsList.indexOf(event.mMeeting);
-        mMeetingsList.remove(event.mMeeting);
-        Toast.makeText(getApplicationContext(), getString(R.string.delete_meeting_toast), Toast.LENGTH_SHORT).show();
-        // TODO add a popup asking for confirmation
-        mMeetingsRecyclerView.getAdapter().notifyItemRemoved(index);
+        AlertDialog.Builder adb = new AlertDialog.Builder(this);
+        adb.setCancelable(false);
+        //adb.setView(alertDialogView);
+        adb.setTitle("Are you sure you want to delete this meeting ?");
+        adb.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                int index = mMeetingsList.indexOf(event.mMeeting);
+                mMeetingsList.remove(event.mMeeting);
+                Toast.makeText(getApplicationContext(), getString(R.string.delete_meeting_toast), Toast.LENGTH_SHORT).show();
+                mMeetingsRecyclerView.getAdapter().notifyItemRemoved(index);
+            }
+        });
+        adb.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(getApplicationContext(), getString(R.string.cancel_delete_meeting_toast), Toast.LENGTH_SHORT).show();
+            }
+        });
+        adb.show();
     }
 }

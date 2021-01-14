@@ -11,4 +11,5 @@
     <string name="delete_meeting_toast">Réunion supprimé</string>
     <string name="add_meeting_toast_create">Réunion créer</string>
     <string name="add_meeting_toast_cancel">Réunion supprimé</string>
+    <string name="cancel_delete_meeting_toast">Meeting not deleted</string>
 </resources>
