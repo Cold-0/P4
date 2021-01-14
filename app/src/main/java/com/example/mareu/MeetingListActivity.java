@@ -65,20 +65,17 @@ public class MeetingListActivity extends AppCompatActivity {
         mMeetingsRecyclerView.getAdapter().notifyDataSetChanged();
     }
 
-    private void initRecyclerView()
-    {
+    private void initRecyclerView() {
         Context context = mMeetingsRecyclerView.getContext();
         mMeetingsRecyclerView.setLayoutManager(new LinearLayoutManager(context));
         mMeetingsList = GenerateMeetingList.generateMeetings();
         mMeetingsRecyclerView.setAdapter(new MeetingListRecyclerViewAdapter(getApplicationContext(), mMeetingsList));
-
     }
 
     @Subscribe
     public void onRemoveMeeting(RemoveMeetingEvent event) {
         AlertDialog.Builder adb = new AlertDialog.Builder(this);
         adb.setCancelable(false);
-        //adb.setView(alertDialogView);
         adb.setTitle(getString(R.string.delete_meeting_confirmation_title));
         adb.setPositiveButton(R.string.delete_meeting_confirm, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {

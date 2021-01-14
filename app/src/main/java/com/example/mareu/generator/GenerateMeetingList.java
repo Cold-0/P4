@@ -11,11 +11,11 @@ import java.util.Random;
 
 public abstract class GenerateMeetingList {
 
-    private static final Random r = new Random();
+    private static final Random mRng = new Random();
 
     public static List<Meeting> DUMMY_MEETINGS = Arrays.asList(
             new Meeting("19/07/2020", "08h40", "4", "Reunion1", getRandomColor(),
-                        Arrays.asList("jean@email.com", "lea@email.com", "nina@email.com")),
+                    Arrays.asList("jean@email.com", "lea@email.com", "nina@email.com")),
             new Meeting("21/07/2020", "14h00", "1", "Reunion2", getRandomColor(),
                     Arrays.asList("bob@email.com", "juan@email.com")),
             new Meeting("21/07/2020", "15h00", "1", "Reunion3", getRandomColor(),
@@ -40,10 +40,11 @@ public abstract class GenerateMeetingList {
                     Arrays.asList("jean@email.com", "lea@email.com", "nina@email.com", "bob@email.com", "juan@email.com"))
     );
 
-    public static List<Meeting> generateMeetings(){return new ArrayList<>(DUMMY_MEETINGS);}
+    public static List<Meeting> generateMeetings() {
+        return new ArrayList<>(DUMMY_MEETINGS);
+    }
 
-    public static int getRandomColor()
-    {
-        return Color.HSVToColor(new float[]{ r.nextFloat()*360, 0.25f, 0.75f } ); // use HSV to get pastel color (sat 25%, value 75%, so only varying HUE
+    public static int getRandomColor() {
+        return Color.HSVToColor(new float[]{mRng.nextFloat() * 360, 0.25f, 0.75f}); // use HSV to get pastel color (sat 25%, value 75%, so only varying HUE
     }
 }
