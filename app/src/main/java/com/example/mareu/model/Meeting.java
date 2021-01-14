@@ -1,9 +1,12 @@
 package com.example.mareu.model;
 
 import android.graphics.Color;
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.List;
 
-public class Meeting {
+public class Meeting implements Parcelable {
     private String mDate;
     private String mTime;
     private String mRoom;
@@ -19,6 +22,27 @@ public class Meeting {
         mColor = color;
         mParticipants = participants;
     }
+
+    protected Meeting(Parcel in) {
+        mDate = in.readString();
+        mTime = in.readString();
+        mRoom = in.readString();
+        mSubject = in.readString();
+        mColor = in.readInt();
+        mParticipants = in.createStringArrayList();
+    }
+
+    public static final Creator<Meeting> CREATOR = new Creator<Meeting>() {
+        @Override
+        public Meeting createFromParcel(Parcel in) {
+            return new Meeting(in);
+        }
+
+        @Override
+        public Meeting[] newArray(int size) {
+            return new Meeting[size];
+        }
+    };
 
     public String getDate() {
         return mDate;
@@ -68,4 +92,18 @@ public class Meeting {
         mParticipants = participants;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(mDate);
+        dest.writeString(mTime);
+        dest.writeString(mRoom);
+        dest.writeString(mSubject);
+        dest.writeInt(mColor);
+        dest.writeStringList(mParticipants);
+    }
 }

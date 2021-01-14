@@ -1,5 +1,6 @@
 package com.example.mareu;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -28,6 +29,8 @@ public class MeetingListActivity extends AppCompatActivity {
     List<Meeting> mMeetingsList;
     ActivityMeetingListBinding mBinding;
 
+    static public final int RETURN_CODE_MEETING_CREATED = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +46,7 @@ public class MeetingListActivity extends AppCompatActivity {
     private void initButtons() {
         mBinding.addMeetingButton.setOnClickListener(v -> {
             Intent intent = new Intent(this, MeetingAddActivity.class);
-            startActivity(intent);
+            startActivityForResult(intent, RETURN_CODE_MEETING_CREATED);
         });
     }
 
@@ -91,5 +94,15 @@ public class MeetingListActivity extends AppCompatActivity {
             }
         });
         adb.show();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == RETURN_CODE_MEETING_CREATED && data != null) {
+            Meeting meeting = data.getExtras().getParcelable("meeting");
+            mMeetingsList.add(meeting);
+            mMeetingsRecyclerView.getAdapter().notifyItemInserted(mMeetingsList.indexOf(meeting));
+        }
     }
 }

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -13,6 +14,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.mareu.databinding.ActivityMeetingAddBinding;
+import com.example.mareu.databinding.ActivityMeetingListBinding;
 import com.example.mareu.generator.GenerateMeetingList;
 import com.example.mareu.model.Meeting;
 
@@ -26,6 +28,7 @@ public class MeetingAddActivity extends AppCompatActivity implements DatePickerD
     ActivityMeetingAddBinding mBinding;
     DatePickerDialog mDatePickerDialog;
     TimePickerDialog mTimePickerDialog;
+    TimePicker mTimePicker;
 
     private static final int DEFAULT_HOUR = 8;
     private static final int DEFAULT_MINUTE = 0;
@@ -46,10 +49,21 @@ public class MeetingAddActivity extends AppCompatActivity implements DatePickerD
         mBinding.accept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Meeting meeting = new Meeting("19/07/2020", "08h40", "4", "BOB", GenerateMeetingList.getRandomColor(),
-                        Arrays.asList("jean@email.com", "lea@email.com", "nina@email.com"));
-                finish();
+                DatePicker datePicker = mDatePickerDialog.getDatePicker();
+                Meeting meeting = new Meeting(
+                        String.format("%02d/%02d/%04d", datePicker.getDayOfMonth(), datePicker.getMonth(), datePicker.getYear()),
+                        String.format("%02dh%02d", mTimePicker != null ? mTimePicker.getCurrentHour() : DEFAULT_HOUR, mTimePicker != null ? mTimePicker.getCurrentMinute() : DEFAULT_MINUTE),
+                        String.format("%d", mBinding.meetingRoom.getSelectedItemPosition()),
+                        mBinding.meetingSubject.getText().toString(),
+                        GenerateMeetingList.getRandomColor(),
+                        Arrays.asList(mBinding.editTextTextEmailAddress.getText().toString())
+                );
                 Toast.makeText(MeetingAddActivity.this.getApplicationContext(), getString(R.string.add_meeting_toast_create), Toast.LENGTH_SHORT).show();
+
+                Intent data = new Intent();
+                data.putExtra("meeting", meeting);
+                setResult(MeetingListActivity.RETURN_CODE_MEETING_CREATED, data);
+                finish();
             }
         });
         mBinding.cancel.setOnClickListener(v -> {
@@ -103,6 +117,9 @@ public class MeetingAddActivity extends AppCompatActivity implements DatePickerD
 
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+        if(mTimePicker==null)
+            mTimePicker=view;
+
         setTime(view.getCurrentHour(), view.getCurrentMinute());
     }
 }
