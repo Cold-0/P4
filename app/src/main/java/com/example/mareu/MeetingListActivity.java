@@ -10,6 +10,9 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -29,7 +32,8 @@ public class MeetingListActivity extends AppCompatActivity {
     List<Meeting> mMeetingsList;
     ActivityMeetingListBinding mBinding;
 
-    static public final int RETURN_CODE_MEETING_CREATED = 1;
+    static public final int REQUEST_CREATE_NEW_MEETING = 1;
+    static public final int RETURN_CODE_MEETING_CREATED = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +42,7 @@ public class MeetingListActivity extends AppCompatActivity {
         View view = mBinding.getRoot();
         setContentView(view);
         mMeetingsRecyclerView = mBinding.meetingList;
-
+        getSupportActionBar().setTitle(getString(R.string.actionbar_title_meeting_list));
         initRecyclerView();
         initButtons();
     }
@@ -46,9 +50,17 @@ public class MeetingListActivity extends AppCompatActivity {
     private void initButtons() {
         mBinding.addMeetingButton.setOnClickListener(v -> {
             Intent intent = new Intent(this, MeetingAddActivity.class);
-            startActivityForResult(intent, RETURN_CODE_MEETING_CREATED);
+            startActivityForResult(intent, REQUEST_CREATE_NEW_MEETING   );
         });
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+        return true;
+    }
+
 
     @Override
     public void onStart() {
@@ -99,7 +111,7 @@ public class MeetingListActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == RETURN_CODE_MEETING_CREATED && data != null) {
+        if(requestCode == REQUEST_CREATE_NEW_MEETING && resultCode == RETURN_CODE_MEETING_CREATED && data != null) {
             Meeting meeting = data.getExtras().getParcelable("meeting");
             mMeetingsList.add(meeting);
             mMeetingsRecyclerView.getAdapter().notifyItemInserted(mMeetingsList.indexOf(meeting));

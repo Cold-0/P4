@@ -25,10 +25,10 @@ import java.util.Locale;
 
 public class MeetingAddActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
-    ActivityMeetingAddBinding mBinding;
-    DatePickerDialog mDatePickerDialog;
-    TimePickerDialog mTimePickerDialog;
-    TimePicker mTimePicker;
+    private ActivityMeetingAddBinding mBinding;
+    private DatePickerDialog mDatePickerDialog;
+    private TimePickerDialog mTimePickerDialog;
+    private TimePicker mTimePicker;
 
     private static final int DEFAULT_HOUR = 8;
     private static final int DEFAULT_MINUTE = 0;
@@ -42,6 +42,8 @@ public class MeetingAddActivity extends AppCompatActivity implements DatePickerD
         mBinding = ActivityMeetingAddBinding.inflate(getLayoutInflater());
         View view = mBinding.getRoot();
         setContentView(view);
+        getSupportActionBar().setTitle(getString(R.string.actionbar_title_meeting_add));
+
         setSpinner();
         setDatePickerDialog();
         setTimePickerDialog();

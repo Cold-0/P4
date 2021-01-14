@@ -16,6 +16,8 @@
     <string name="delete_meeting_confirm">OK</string>
     <string name="delete_meeting_cancel">Cancel</string>
     <string name="meeting_add_change_date">Changer la date</string>
+    <string name="actionbar_title_meeting_list">Liste réunions</string>
+    <string name="actionbar_title_meeting_add">Ajouter une réunion</string>
     <string-array name="meeting_room_names_array">
         <item>Salle 1</item>
         <item>Salle 2</item>

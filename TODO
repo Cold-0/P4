@@ -1,19 +1,14 @@
 https://github.com/Genymobile/scrcpy
 
--------
-DatePicker TimePicker utiliser dialog
-
-Fixer les couleurs
-
 ---------------------
-- Faire la toolbar pour filter
-ActionBar et ToolBar
-Utiliser MenuItem
-
-A voir a la fin
+- Faire une Dialog custom avec choix date, heure, salle
+- Test orientation et tablette
+- Participant Chips
+- Test Unitaire
+- Test Integration
 https://material.io/components/chips#usage
 
-
+------
 Kotlin moins de ressource
 Java plus reçent
 Plus facile de trouver dev java que kotline
