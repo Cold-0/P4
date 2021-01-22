@@ -6,6 +6,7 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
@@ -30,12 +31,6 @@ public class MeetingAddActivity extends AppCompatActivity implements DatePickerD
     private TimePickerDialog mTimePickerDialog;
     private TimePicker mTimePicker;
 
-    private static final int DEFAULT_HOUR = 8;
-    private static final int DEFAULT_MINUTE = 0;
-    private static final int DEFAULT_DAY = 1;
-    private static final int DEFAULT_MONTH = 1;
-    private static final int DEFAULT_YEAR = 2021;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +49,7 @@ public class MeetingAddActivity extends AppCompatActivity implements DatePickerD
                 DatePicker datePicker = mDatePickerDialog.getDatePicker();
                 Meeting meeting = new Meeting(
                         String.format("%02d/%02d/%04d", datePicker.getDayOfMonth(), datePicker.getMonth(), datePicker.getYear()),
-                        String.format("%02dh%02d", mTimePicker != null ? mTimePicker.getCurrentHour() : DEFAULT_HOUR, mTimePicker != null ? mTimePicker.getCurrentMinute() : DEFAULT_MINUTE),
+                        String.format("%02dh%02d", mTimePicker != null ? mTimePicker.getCurrentHour() : getResources().getInteger(R.integer.default_hour), mTimePicker != null ? mTimePicker.getCurrentMinute() : getResources().getInteger(R.integer.default_minute)),
                         String.format("%d", mBinding.meetingRoom.getSelectedItemPosition()),
                         mBinding.meetingSubject.getText().toString(),
                         GenerateMeetingList.getRandomColor(),
@@ -75,7 +70,12 @@ public class MeetingAddActivity extends AppCompatActivity implements DatePickerD
     }
 
     private void setDatePickerDialog() {
-        mDatePickerDialog = new DatePickerDialog(this, MeetingAddActivity.this, DEFAULT_YEAR, DEFAULT_MONTH, DEFAULT_DAY);
+        Calendar c = Calendar.getInstance();
+        mDatePickerDialog = new DatePickerDialog(this, MeetingAddActivity.this,
+                c.get(Calendar.YEAR),
+                c.get(Calendar.MONTH),
+                c.get(Calendar.DAY_OF_MONTH)
+        );
         mDatePickerDialog.setCancelable(false);
         setDate(mDatePickerDialog.getDatePicker());
         mBinding.meetingDate.setOnClickListener(v -> {
@@ -84,9 +84,9 @@ public class MeetingAddActivity extends AppCompatActivity implements DatePickerD
     }
 
     private void setTimePickerDialog() {
-        mTimePickerDialog = new TimePickerDialog(this, MeetingAddActivity.this, DEFAULT_HOUR, DEFAULT_MINUTE, true);
+        mTimePickerDialog = new TimePickerDialog(this, MeetingAddActivity.this, getResources().getInteger(R.integer.default_hour), getResources().getInteger(R.integer.default_minute), true);
         mTimePickerDialog.setCancelable(false);
-        setTime(DEFAULT_HOUR, DEFAULT_MINUTE);
+        setTime(getResources().getInteger(R.integer.default_hour), getResources().getInteger(R.integer.default_minute));
         mBinding.meetingTime.setOnClickListener(v -> {
             mTimePickerDialog.show();
         });
@@ -119,8 +119,8 @@ public class MeetingAddActivity extends AppCompatActivity implements DatePickerD
 
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-        if(mTimePicker==null)
-            mTimePicker=view;
+        if (mTimePicker == null)
+            mTimePicker = view;
 
         setTime(view.getCurrentHour(), view.getCurrentMinute());
     }

@@ -3,6 +3,7 @@ package com.example.mareu;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -14,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Filter;
 import android.widget.Toast;
 
 import com.example.mareu.databinding.ActivityMeetingListBinding;
@@ -117,4 +119,18 @@ public class MeetingListActivity extends AppCompatActivity {
             mMeetingsRecyclerView.getAdapter().notifyItemInserted(mMeetingsList.indexOf(meeting));
         }
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        if (item.getItemId() == R.id.filter_menu) {
+            //Toast.makeText(getApplicationContext(), "Clicked Filter", Toast.LENGTH_SHORT).show();
+            FragmentManager fm = getSupportFragmentManager();
+            FilterDialogFragment filterDialogFragment = FilterDialogFragment.newInstance("Some Title");
+            filterDialogFragment.show(fm, "fragment_edit_name");
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }
+

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="default_minute">0</integer>
+    <integer name="default_hour">8</integer>
+    <integer name="default_year">2021</integer>
+    <integer name="default_month">1</integer>
+    <integer name="default_day">1</integer>
+</resources>
