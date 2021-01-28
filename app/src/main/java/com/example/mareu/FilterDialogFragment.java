@@ -2,13 +2,10 @@ package com.example.mareu;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.widget.ArrayAdapter;
@@ -16,6 +13,7 @@ import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.mareu.callback.IFilterCallback;
 import com.example.mareu.databinding.FragmentDialogFilterBinding;
 
 import java.text.SimpleDateFormat;
@@ -26,6 +24,7 @@ public class FilterDialogFragment extends DialogFragment implements DatePickerDi
 
     private FragmentDialogFilterBinding mBinding;
     private DatePickerDialog mDatePickerDialog;
+    private IFilterCallback mIFilterCallback;
 
     public static FilterDialogFragment newInstance(String title) {
         return new FilterDialogFragment();

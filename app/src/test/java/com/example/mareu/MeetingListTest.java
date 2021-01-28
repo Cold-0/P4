@@ -13,13 +13,18 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-@RunWith(JUnit4.class)
 public class MeetingListTest {
     List<Meeting> mMeetingList;
 
     @Before
     public void setup() {
         mMeetingList = GenerateMeetingList.generateMeetings();
+    }
+
+    @Test
+    public void test()
+    {
+        assertFalse(false);
     }
 
     @Test

@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.Filter;
 import android.widget.Toast;
 
+import com.example.mareu.callback.IFilterCallback;
 import com.example.mareu.databinding.ActivityMeetingListBinding;
 import com.example.mareu.generator.GenerateMeetingList;
 import com.example.mareu.events.RemoveMeetingEvent;
@@ -28,7 +29,7 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.util.List;
 
-public class MeetingListActivity extends AppCompatActivity implements DialogInterface.OnDismissListener {
+public class MeetingListActivity extends AppCompatActivity implements IFilterCallback {
 
     RecyclerView mMeetingsRecyclerView;
     List<Meeting> mMeetingsList;
@@ -50,9 +51,12 @@ public class MeetingListActivity extends AppCompatActivity implements DialogInte
     }
 
     private void initButtons() {
-        mBinding.addMeetingButton.setOnClickListener(v -> {
-            Intent intent = new Intent(this, MeetingAddActivity.class);
-            startActivityForResult(intent, REQUEST_CREATE_NEW_MEETING   );
+        mBinding.addMeetingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MeetingListActivity.this, MeetingAddActivity.class);
+                MeetingListActivity.this.startActivityForResult(intent, REQUEST_CREATE_NEW_MEETING);
+            }
         });
     }
 
@@ -138,8 +142,13 @@ public class MeetingListActivity extends AppCompatActivity implements DialogInte
     }
 
     @Override
-    public void onDismiss(DialogInterface dialog) {
-        Toast.makeText(getApplicationContext(), "Hello", Toast.LENGTH_SHORT).show();
+    public void onValidate() {
+
+    }
+
+    @Override
+    public void onReset() {
+
     }
 }
 

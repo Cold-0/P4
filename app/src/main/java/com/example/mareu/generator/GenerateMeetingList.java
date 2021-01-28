@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Random;
 
 public abstract class GenerateMeetingList {
-
     private static final Random r = new Random();
 
     public static List<Meeting> DUMMY_MEETINGS = Arrays.asList(

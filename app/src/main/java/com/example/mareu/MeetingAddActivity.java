@@ -66,9 +66,12 @@ public class MeetingAddActivity extends AppCompatActivity implements DatePickerD
                 finish();
             }
         });
-        mBinding.cancel.setOnClickListener(v -> {
-            finish();
-            Toast.makeText(MeetingAddActivity.this.getApplicationContext(), getString(R.string.add_meeting_toast_cancel), Toast.LENGTH_SHORT).show();
+        mBinding.cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MeetingAddActivity.this.finish();
+                Toast.makeText(MeetingAddActivity.this.getApplicationContext(), MeetingAddActivity.this.getString(R.string.add_meeting_toast_cancel), Toast.LENGTH_SHORT).show();
+            }
         });
     }
 
