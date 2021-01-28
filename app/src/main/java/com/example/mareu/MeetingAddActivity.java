@@ -6,7 +6,10 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
+import android.text.Editable;
+import android.text.Spanned;
+import android.text.TextWatcher;
+import android.text.style.ImageSpan;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
@@ -15,9 +18,9 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.mareu.databinding.ActivityMeetingAddBinding;
-import com.example.mareu.databinding.ActivityMeetingListBinding;
 import com.example.mareu.generator.GenerateMeetingList;
 import com.example.mareu.model.Meeting;
+import com.google.android.material.chip.ChipDrawable;
 
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -42,7 +45,7 @@ public class MeetingAddActivity extends AppCompatActivity implements DatePickerD
         setSpinner();
         setDatePickerDialog();
         setTimePickerDialog();
-
+        setChip();
         mBinding.accept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -53,7 +56,7 @@ public class MeetingAddActivity extends AppCompatActivity implements DatePickerD
                         String.format("%d", mBinding.meetingRoom.getSelectedItemPosition()),
                         mBinding.meetingSubject.getText().toString(),
                         GenerateMeetingList.getRandomColor(),
-                        Arrays.asList(mBinding.editTextTextEmailAddress.getText().toString())
+                        Arrays.asList(mBinding.meetingParticipants.getText().toString())
                 );
                 Toast.makeText(MeetingAddActivity.this.getApplicationContext(), getString(R.string.add_meeting_toast_create), Toast.LENGTH_SHORT).show();
 
@@ -66,6 +69,38 @@ public class MeetingAddActivity extends AppCompatActivity implements DatePickerD
         mBinding.cancel.setOnClickListener(v -> {
             finish();
             Toast.makeText(MeetingAddActivity.this.getApplicationContext(), getString(R.string.add_meeting_toast_cancel), Toast.LENGTH_SHORT).show();
+        });
+    }
+
+    private void setChip() {
+        mBinding.meetingParticipants.addTextChangedListener(new TextWatcher() {
+            private int SpannedLength = 0,chipLength = 4;
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (charSequence.length() == SpannedLength - chipLength)
+                {
+                    SpannedLength = charSequence.length();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+                if(editable.length() - SpannedLength == chipLength) {
+                    ChipDrawable chip = ChipDrawable.createFromResource(getApplicationContext(), R.xml.email_chip);
+                    chip.setText(editable.subSequence(SpannedLength,editable.length()));
+                    chip.setBounds(0, 0, chip.getIntrinsicWidth(), chip.getIntrinsicHeight());
+                    ImageSpan span = new ImageSpan(chip);
+                    editable.setSpan(span, SpannedLength, editable.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    SpannedLength = editable.length();
+                }
+
+            }
         });
     }
 

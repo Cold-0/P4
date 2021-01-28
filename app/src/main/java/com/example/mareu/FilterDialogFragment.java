@@ -31,7 +31,6 @@ public class FilterDialogFragment extends DialogFragment implements DatePickerDi
         return new FilterDialogFragment();
     }
 
-
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         mBinding = FragmentDialogFilterBinding.inflate(LayoutInflater.from(getContext()));

@@ -3,6 +3,7 @@ https://github.com/Genymobile/scrcpy
 ---------------------
 - Faire une Dialog custom avec choix date, heure, salle
 - Test orientation et tablette
+- Ajouter un dialog d
 - Participant Chips
 - Test Unitaire
 - Test Integration
@@ -12,3 +13,6 @@ https://material.io/components/chips#usage
 Kotlin moins de ressource
 Java plus reçent
 Plus facile de trouver dev java que kotline
+Kotlin est beaucoup plus jeune, il y a moins de ressource même si cela s'améliore. Par contre pour trouver des developpeur qualifier il faut chercher beaucoup plus et donc java a cette avantage d'avoir beaucoup de pro.
+
+Ajouter de nouvelle fenTu 

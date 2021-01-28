@@ -28,7 +28,7 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.util.List;
 
-public class MeetingListActivity extends AppCompatActivity {
+public class MeetingListActivity extends AppCompatActivity implements DialogInterface.OnDismissListener {
 
     RecyclerView mMeetingsRecyclerView;
     List<Meeting> mMeetingsList;
@@ -63,7 +63,6 @@ public class MeetingListActivity extends AppCompatActivity {
         return true;
     }
 
-
     @Override
     public void onStart() {
         super.onStart();
@@ -86,7 +85,12 @@ public class MeetingListActivity extends AppCompatActivity {
         Context context = mMeetingsRecyclerView.getContext();
         mMeetingsRecyclerView.setLayoutManager(new LinearLayoutManager(context));
         mMeetingsList = GenerateMeetingList.generateMeetings();
-        mMeetingsRecyclerView.setAdapter(new MeetingListRecyclerViewAdapter(getApplicationContext(), mMeetingsList));
+        setRecyclerViewList(mMeetingsList);
+    }
+
+    private void setRecyclerViewList(List<Meeting> list)
+    {
+        mMeetingsRecyclerView.setAdapter(new MeetingListRecyclerViewAdapter(getApplicationContext(), list));
     }
 
     @Subscribe
@@ -131,6 +135,11 @@ public class MeetingListActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        Toast.makeText(getApplicationContext(), "Hello", Toast.LENGTH_SHORT).show();
     }
 }
 
