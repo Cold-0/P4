@@ -107,10 +107,15 @@ public class MeetingListActivity extends AppCompatActivity implements IFilterCal
         adb.setTitle(getString(R.string.delete_meeting_confirmation_title));
         adb.setPositiveButton(R.string.delete_meeting_confirm, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-                int index = mMeetingsList.indexOf(event.mMeeting);
-                mMeetingsList.remove(event.mMeeting);
+                MeetingListRecyclerViewAdapter adapter = (MeetingListRecyclerViewAdapter)mMeetingsRecyclerView.getAdapter();
+                List<Meeting> list = adapter.getList();
+                int index = list.indexOf(event.mMeeting);
+                if( list != mMeetingsList) // Remove from the mMeetingList if the list is filtered
+                    mMeetingsList.remove(event.mMeeting);
+                list.remove(event.mMeeting);
+                adapter.notifyItemRemoved(index);
+
                 Toast.makeText(getApplicationContext(), getString(R.string.delete_meeting_toast), Toast.LENGTH_SHORT).show();
-                mMeetingsRecyclerView.getAdapter().notifyItemRemoved(index);
             }
         });
         adb.setNegativeButton(R.string.delete_meeting_cancel, new DialogInterface.OnClickListener() {

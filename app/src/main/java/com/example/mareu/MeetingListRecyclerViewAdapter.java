@@ -30,6 +30,10 @@ public class MeetingListRecyclerViewAdapter extends RecyclerView.Adapter<Meeting
         notifyDataSetChanged();
     }
 
+    public List<Meeting> getList(){
+        return mValues;
+    }
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new ViewHolder(
