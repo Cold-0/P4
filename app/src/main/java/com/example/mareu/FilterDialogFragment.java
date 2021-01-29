@@ -26,8 +26,10 @@ public class FilterDialogFragment extends DialogFragment implements DatePickerDi
     private DatePickerDialog mDatePickerDialog;
     private IFilterCallback mIFilterCallback;
 
-    public static FilterDialogFragment newInstance(String title) {
-        return new FilterDialogFragment();
+    public static FilterDialogFragment newInstance(String title, IFilterCallback callback) {
+        FilterDialogFragment returned = new FilterDialogFragment();
+        returned.mIFilterCallback = callback;
+        return returned;
     }
 
     @Override
@@ -38,11 +40,16 @@ public class FilterDialogFragment extends DialogFragment implements DatePickerDi
         builder.setCancelable(false);
         builder.setView(mBinding.getRoot())
                 .setPositiveButton("Ok", (dialog, id) -> {
+                    DatePicker picker = mDatePickerDialog.getDatePicker();
+                    mIFilterCallback.onValidate(
+                            String.format("%d", mBinding.filterRoom.getSelectedItemPosition()+1),
+                            String.format("%02d/%02d/%04d", picker.getDayOfMonth(), picker.getMonth()+1, picker.getYear())
+                );
 
                 })
                 .setNegativeButton("Reset", (dialog, id) ->
                 {
-                    Toast.makeText(getContext(),"Hello Javatpoint",Toast.LENGTH_SHORT).show();
+                    mIFilterCallback.onReset();
                 });
         setSpinner();
         setDatePickerDialog();

@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -27,10 +28,12 @@ import com.example.mareu.model.Meeting;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MeetingListActivity extends AppCompatActivity implements IFilterCallback {
 
+    private static final String TAG = "MeetingListActivity";
     RecyclerView mMeetingsRecyclerView;
     List<Meeting> mMeetingsList;
     ActivityMeetingListBinding mBinding;
@@ -89,12 +92,12 @@ public class MeetingListActivity extends AppCompatActivity implements IFilterCal
         Context context = mMeetingsRecyclerView.getContext();
         mMeetingsRecyclerView.setLayoutManager(new LinearLayoutManager(context));
         mMeetingsList = GenerateMeetingList.generateMeetings();
-        setRecyclerViewList(mMeetingsList);
+        mMeetingsRecyclerView.setAdapter(new MeetingListRecyclerViewAdapter(getApplicationContext(), mMeetingsList));
     }
 
-    private void setRecyclerViewList(List<Meeting> list)
-    {
-        mMeetingsRecyclerView.setAdapter(new MeetingListRecyclerViewAdapter(getApplicationContext(), list));
+    private void setRecyclerViewList(List<Meeting> list) {
+        MeetingListRecyclerViewAdapter adapter = (MeetingListRecyclerViewAdapter) mMeetingsRecyclerView.getAdapter();
+        adapter.setList(list);
     }
 
     @Subscribe
@@ -121,7 +124,7 @@ public class MeetingListActivity extends AppCompatActivity implements IFilterCal
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == REQUEST_CREATE_NEW_MEETING && resultCode == RETURN_CODE_MEETING_CREATED && data != null) {
+        if (requestCode == REQUEST_CREATE_NEW_MEETING && resultCode == RETURN_CODE_MEETING_CREATED && data != null) {
             Meeting meeting = data.getExtras().getParcelable("meeting");
             mMeetingsList.add(meeting);
             mMeetingsRecyclerView.getAdapter().notifyItemInserted(mMeetingsList.indexOf(meeting));
@@ -132,9 +135,8 @@ public class MeetingListActivity extends AppCompatActivity implements IFilterCal
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
         if (item.getItemId() == R.id.filter_menu) {
-            //Toast.makeText(getApplicationContext(), "Clicked Filter", Toast.LENGTH_SHORT).show();
             FragmentManager fm = getSupportFragmentManager();
-            FilterDialogFragment filterDialogFragment = FilterDialogFragment.newInstance("Some Title");
+            FilterDialogFragment filterDialogFragment = FilterDialogFragment.newInstance("Some Title", this);
             filterDialogFragment.show(fm, "fragment_edit_name");
             return true;
         }
@@ -142,13 +144,24 @@ public class MeetingListActivity extends AppCompatActivity implements IFilterCal
     }
 
     @Override
-    public void onValidate() {
-
+    public void onValidate(String room, String date) {
+        Toast.makeText(getApplicationContext(), "Validate", Toast.LENGTH_SHORT).show();
+        List<Meeting> new_list = new ArrayList<>();
+        Log.i(TAG, String.format("onValidate: %s, %s", room, date));
+        for(Meeting meeting : mMeetingsList)
+        {
+            Log.i(TAG, String.format("List all : %s, %s", meeting.getRoom(), meeting.getDate()));
+            if(meeting.getRoom().equals(room) && meeting.getDate().equals(date))
+                new_list.add(meeting);
+        }
+        setRecyclerViewList(new_list);
     }
 
     @Override
     public void onReset() {
-
+        setRecyclerViewList(mMeetingsList);
+        Toast.makeText(getApplicationContext(), "Reset", Toast.LENGTH_SHORT).show();
+        Log.i(TAG, "onReset");
     }
 }
 

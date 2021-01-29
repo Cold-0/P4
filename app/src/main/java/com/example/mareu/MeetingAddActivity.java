@@ -51,9 +51,9 @@ public class MeetingAddActivity extends AppCompatActivity implements DatePickerD
             public void onClick(View v) {
                 DatePicker datePicker = mDatePickerDialog.getDatePicker();
                 Meeting meeting = new Meeting(
-                        String.format("%02d/%02d/%04d", datePicker.getDayOfMonth(), datePicker.getMonth(), datePicker.getYear()),
+                        String.format("%02d/%02d/%04d", datePicker.getDayOfMonth(), datePicker.getMonth()+1, datePicker.getYear()),
                         String.format("%02dh%02d", mTimePicker != null ? mTimePicker.getCurrentHour() : getResources().getInteger(R.integer.default_hour), mTimePicker != null ? mTimePicker.getCurrentMinute() : getResources().getInteger(R.integer.default_minute)),
-                        String.format("%d", mBinding.meetingRoom.getSelectedItemPosition()),
+                        String.format("%d", mBinding.meetingRoom.getSelectedItemPosition()+1),
                         mBinding.meetingSubject.getText().toString(),
                         GenerateMeetingList.getRandomColor(),
                         Arrays.asList(mBinding.meetingParticipants.getText().toString())
@@ -77,7 +77,8 @@ public class MeetingAddActivity extends AppCompatActivity implements DatePickerD
 
     private void setChip() {
         mBinding.meetingParticipants.addTextChangedListener(new TextWatcher() {
-            private int SpannedLength = 0,chipLength = 4;
+            private int SpannedLength = 0, chipLength = 4;
+
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -85,18 +86,16 @@ public class MeetingAddActivity extends AppCompatActivity implements DatePickerD
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (charSequence.length() == SpannedLength - chipLength)
-                {
+                if (charSequence.length() == SpannedLength - chipLength) {
                     SpannedLength = charSequence.length();
                 }
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
-
-                if(editable.length() - SpannedLength == chipLength) {
-                    ChipDrawable chip = ChipDrawable.createFromResource(getApplicationContext(), R.xml.email_chip);
-                    chip.setText(editable.subSequence(SpannedLength,editable.length()));
+                if (editable.toString().charAt(editable.length() - 1) == ' ' || editable.toString().charAt(editable.length() - 1) == '\n') {
+                    ChipDrawable chip = ChipDrawable.createFromResource(MeetingAddActivity.this, R.xml.email_chip);
+                    chip.setText(editable.subSequence(SpannedLength, editable.length() - 1));
                     chip.setBounds(0, 0, chip.getIntrinsicWidth(), chip.getIntrinsicHeight());
                     ImageSpan span = new ImageSpan(chip);
                     editable.setSpan(span, SpannedLength, editable.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);

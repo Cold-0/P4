@@ -16,13 +16,18 @@ import java.util.List;
 
 public class MeetingListRecyclerViewAdapter extends RecyclerView.Adapter<MeetingListRecyclerViewAdapter.ViewHolder> {
 
-    private final List<Meeting> mValues;
+    private List<Meeting> mValues;
     public FragmentMeetingItemBinding binding;
     private Context mContext;
 
     public MeetingListRecyclerViewAdapter(Context context, List<Meeting> items) {
         mValues = items;
         mContext = context;
+    }
+
+    public void setList(List<Meeting> list) {
+        mValues = list;
+        notifyDataSetChanged();
     }
 
     @Override
