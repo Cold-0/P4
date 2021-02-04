@@ -11,15 +11,13 @@ public class Meeting implements Parcelable {
     private String mTime;
     private String mRoom;
     private String mSubject;
-    private int mColor;
     private List<String> mParticipants;
 
-    public Meeting(String date, String time, String room, String subject, int color, List<String> participants) {
+    public Meeting(String date, String time, String room, String subject, List<String> participants) {
         mDate = date;
         mTime = time;
         mRoom = room;
         mSubject = subject;
-        mColor = color;
         mParticipants = participants;
     }
 
@@ -28,7 +26,6 @@ public class Meeting implements Parcelable {
         mTime = in.readString();
         mRoom = in.readString();
         mSubject = in.readString();
-        mColor = in.readInt();
         mParticipants = in.createStringArrayList();
     }
 
@@ -76,14 +73,6 @@ public class Meeting implements Parcelable {
         mSubject = subject;
     }
 
-    public int getColor() {
-        return mColor;
-    }
-
-    public void setColor(int color) {
-        mColor = color;
-    }
-
     public List<String> getParticipants() {
         return mParticipants;
     }
@@ -103,7 +92,6 @@ public class Meeting implements Parcelable {
         dest.writeString(mTime);
         dest.writeString(mRoom);
         dest.writeString(mSubject);
-        dest.writeInt(mColor);
         dest.writeStringList(mParticipants);
     }
 }

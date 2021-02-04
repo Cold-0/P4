@@ -3,6 +3,7 @@ package com.example.mareu;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -13,9 +14,10 @@ import com.example.mareu.model.Meeting;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
+import java.util.Random;
 
 public class MeetingListRecyclerViewAdapter extends RecyclerView.Adapter<MeetingListRecyclerViewAdapter.ViewHolder> {
-
+    private static final Random r = new Random();
     private List<Meeting> mValues;
     public FragmentMeetingItemBinding binding;
     private Context mContext;
@@ -41,13 +43,17 @@ public class MeetingListRecyclerViewAdapter extends RecyclerView.Adapter<Meeting
         );
     }
 
+    public static int getRandomColor() {
+        return Color.HSVToColor(new float[]{r.nextFloat() * 360, 0.25f, 0.75f}); // use HSV to get pastel color (sat 25%, value 75%, so only varying HUE
+    }
+
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         Meeting meeting = mValues.get(position);
         String subject = mContext.getString(R.string.item_meeting_subject_format, meeting.getSubject(), meeting.getTime(), meeting.getRoom());
         holder.mBinding.subjectMeeting.setText(subject);
         holder.mBinding.participantsMeeting.setText(formatParticipantList(meeting.getParticipants()));
-        holder.mBinding.colorMeeting.setColorFilter(meeting.getColor());
+        holder.mBinding.colorMeeting.setColorFilter(getRandomColor());
         holder.mBinding.removeMeeting.setOnClickListener(v -> {
             EventBus.getDefault().post(new RemoveMeetingEvent(meeting));
         });

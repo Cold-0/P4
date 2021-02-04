@@ -10,6 +10,7 @@ import android.text.Editable;
 import android.text.Spanned;
 import android.text.TextWatcher;
 import android.text.style.ImageSpan;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
@@ -25,10 +26,12 @@ import com.google.android.material.chip.ChipDrawable;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 
 public class MeetingAddActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
+    private static final String TAG = "MeetingAddActivity";
     private ActivityMeetingAddBinding mBinding;
     private DatePickerDialog mDatePickerDialog;
     private TimePickerDialog mTimePickerDialog;
@@ -51,12 +54,11 @@ public class MeetingAddActivity extends AppCompatActivity implements DatePickerD
             public void onClick(View v) {
                 DatePicker datePicker = mDatePickerDialog.getDatePicker();
                 Meeting meeting = new Meeting(
-                        String.format("%02d/%02d/%04d", datePicker.getDayOfMonth(), datePicker.getMonth()+1, datePicker.getYear()),
+                        String.format("%02d/%02d/%04d", datePicker.getDayOfMonth(), datePicker.getMonth() + 1, datePicker.getYear()),
                         String.format("%02dh%02d", mTimePicker != null ? mTimePicker.getCurrentHour() : getResources().getInteger(R.integer.default_hour), mTimePicker != null ? mTimePicker.getCurrentMinute() : getResources().getInteger(R.integer.default_minute)),
-                        String.format("%d", mBinding.meetingRoom.getSelectedItemPosition()+1),
+                        String.format("%d", mBinding.meetingRoom.getSelectedItemPosition() + 1),
                         mBinding.meetingSubject.getText().toString(),
-                        GenerateMeetingList.getRandomColor(),
-                        Arrays.asList(mBinding.meetingParticipants.getText().toString())
+                        Arrays.asList(mBinding.meetingParticipants.getText().toString().split("\\W+"))
                 );
                 Toast.makeText(MeetingAddActivity.this.getApplicationContext(), getString(R.string.add_meeting_toast_create), Toast.LENGTH_SHORT).show();
 
@@ -77,31 +79,40 @@ public class MeetingAddActivity extends AppCompatActivity implements DatePickerD
 
     private void setChip() {
         mBinding.meetingParticipants.addTextChangedListener(new TextWatcher() {
-            private int SpannedLength = 0, chipLength = 4;
+            private int SpannedLength = 0;
 
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
 
             }
 
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (charSequence.length() == SpannedLength - chipLength) {
-                    SpannedLength = charSequence.length();
-                }
+            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if (editable.toString().charAt(editable.length() - 1) == ' ' || editable.toString().charAt(editable.length() - 1) == '\n') {
+//                if (editable.length() <= SpannedLength) {
+//                    ImageSpan[] toRemoveSpans = editable.getSpans(0, editable.length(), ImageSpan.class);
+//                    if (toRemoveSpans.length > 0)
+//                    {
+//                        int index = toRemoveSpans.length - 1;
+//                        ImageSpan span = toRemoveSpans[index];
+//                        SpannedLength -= (editable.getSpanEnd(span) - editable.getSpanStart(span));
+//                        editable.removeSpan(span);
+//                    }
+//                }
+                if (editable.length() > 0 && (editable.charAt(editable.length() - 1) == ' ' || editable.charAt(editable.length() - 1) == '\n') && editable.length() > SpannedLength) {
                     ChipDrawable chip = ChipDrawable.createFromResource(MeetingAddActivity.this, R.xml.email_chip);
                     chip.setText(editable.subSequence(SpannedLength, editable.length() - 1));
                     chip.setBounds(0, 0, chip.getIntrinsicWidth(), chip.getIntrinsicHeight());
                     ImageSpan span = new ImageSpan(chip);
+
+                    // -------- //
                     editable.setSpan(span, SpannedLength, editable.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                     SpannedLength = editable.length();
                 }
-
+                Log.i(TAG, String.format("%s", editable));
             }
         });
     }

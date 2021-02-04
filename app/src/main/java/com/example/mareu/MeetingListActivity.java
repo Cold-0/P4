@@ -152,10 +152,8 @@ public class MeetingListActivity extends AppCompatActivity implements IFilterCal
     public void onValidate(String room, String date) {
         Toast.makeText(getApplicationContext(), "Validate", Toast.LENGTH_SHORT).show();
         List<Meeting> new_list = new ArrayList<>();
-        Log.i(TAG, String.format("onValidate: %s, %s", room, date));
         for(Meeting meeting : mMeetingsList)
         {
-            Log.i(TAG, String.format("List all : %s, %s", meeting.getRoom(), meeting.getDate()));
             if(meeting.getRoom().equals(room) && meeting.getDate().equals(date))
                 new_list.add(meeting);
         }
@@ -166,7 +164,6 @@ public class MeetingListActivity extends AppCompatActivity implements IFilterCal
     public void onReset() {
         setRecyclerViewList(mMeetingsList);
         Toast.makeText(getApplicationContext(), "Reset", Toast.LENGTH_SHORT).show();
-        Log.i(TAG, "onReset");
     }
 }
 
