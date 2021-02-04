@@ -30,7 +30,6 @@ import java.util.List;
 
 public class MeetingListActivity extends AppCompatActivity implements IFilterCallback, IDeleteMeeting {
 
-    private static final String TAG = "MeetingListActivity";
     RecyclerView mMeetingsRecyclerView;
     MeetingApiService mMeetingApiService;
     ActivityMeetingListBinding mBinding;
@@ -100,7 +99,7 @@ public class MeetingListActivity extends AppCompatActivity implements IFilterCal
         // Handle item selection
         if (item.getItemId() == R.id.filter_menu) {
             FragmentManager fm = getSupportFragmentManager();
-            FilterDialogFragment filterDialogFragment = FilterDialogFragment.newInstance("Some Title", this);
+            FilterDialogFragment filterDialogFragment = FilterDialogFragment.newInstance(getString(R.string.filter), this);
             filterDialogFragment.show(fm, "fragment_edit_name");
             return true;
         }
@@ -109,7 +108,7 @@ public class MeetingListActivity extends AppCompatActivity implements IFilterCal
 
     @Override
     public void onValidateFilter(String room, String date) {
-        Toast.makeText(getApplicationContext(), "Validate", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), getString(R.string.validate), Toast.LENGTH_SHORT).show();
         List<Meeting> new_list = new ArrayList<>();
         for (Meeting meeting : mMeetingApiService.getMeetings()) {
             if (meeting.getRoom().equals(room) && meeting.getDate().equals(date))
@@ -121,7 +120,7 @@ public class MeetingListActivity extends AppCompatActivity implements IFilterCal
     @Override
     public void onResetFilter() {
         setRecyclerViewList(mMeetingApiService.getMeetings());
-        Toast.makeText(getApplicationContext(), "Reset", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), getString(R.string.reset), Toast.LENGTH_SHORT).show();
     }
 
     @Override

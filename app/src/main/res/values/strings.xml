@@ -8,13 +8,13 @@
     <string name="room">Salle</string>
     <string name="item_meeting_subject_format">%1$s - %2$s - Salle %3$s</string>
     <string name="participants">Participants</string>
-    <string name="delete_meeting_toast">Réunion supprimé</string>
-    <string name="add_meeting_toast_create">Ajout de Réunion</string>
-    <string name="add_meeting_toast_cancel">Ajout de réunion annulé</string>
-    <string name="cancel_delete_meeting_toast">Meeting not deleted</string>
-    <string name="delete_meeting_confirmation_title">Are you sure you want to delete this meeting ?</string>
+    <string name="delete_meeting_toast">Réunion supprimée</string>
+    <string name="add_meeting_toast_create">Réunion créé</string>
+    <string name="add_meeting_toast_cancel">Création de réunion annulé</string>
+    <string name="cancel_delete_meeting_toast">Réunion conservé</string>
+    <string name="delete_meeting_confirmation_title">Voulez-vous vraiment supprimer cette réunion?</string>
     <string name="delete_meeting_confirm">OK</string>
-    <string name="delete_meeting_cancel">Cancel</string>
+    <string name="delete_meeting_cancel">Annuler</string>
     <string name="meeting_add_change_date">Changer la date</string>
     <string name="actionbar_title_meeting_list">Liste réunions</string>
     <string name="actionbar_title_meeting_add">Ajouter une réunion</string>
@@ -31,5 +31,11 @@
         <item>Salle 9</item>
         <item>Salle 10</item>
     </string-array>
-    <string name="reset">Reset</string>
+    <string name="reset">Réinitialiser</string>
+    <string name="format_date">%1$02d/%2$02d/%3$04d</string>
+    <string name="format_hour">%1$02dh%2$02d</string>
+    <string name="format_room">%1$d</string>
+    <string name="validate">Valider</string>
+    <string name="display_format_hour">%1$02d h %2$02d</string>
+    <string name="display_date_format">EEEE d MMMM yyyy</string>
 </resources>

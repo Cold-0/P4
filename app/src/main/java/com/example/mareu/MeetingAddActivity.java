@@ -28,8 +28,6 @@ import java.util.Calendar;
 import java.util.Locale;
 
 public class MeetingAddActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
-
-    private static final String TAG = "MeetingAddActivity";
     private ActivityMeetingAddBinding mBinding;
     private DatePickerDialog mDatePickerDialog;
     private TimePickerDialog mTimePickerDialog;
@@ -52,11 +50,11 @@ public class MeetingAddActivity extends AppCompatActivity implements DatePickerD
             public void onClick(View v) {
                 DatePicker datePicker = mDatePickerDialog.getDatePicker();
                 Meeting meeting = new Meeting(
-                        String.format("%02d/%02d/%04d", datePicker.getDayOfMonth(), datePicker.getMonth() + 1, datePicker.getYear()),
-                        String.format("%02dh%02d", mTimePicker != null ? mTimePicker.getCurrentHour() : getResources().getInteger(R.integer.default_hour), mTimePicker != null ? mTimePicker.getCurrentMinute() : getResources().getInteger(R.integer.default_minute)),
-                        String.format("%d", mBinding.meetingRoom.getSelectedItemPosition() + 1),
+                        getString(R.string.format_date, datePicker.getDayOfMonth(), datePicker.getMonth() + 1, datePicker.getYear()),
+                        getString(R.string.format_hour, mTimePicker != null ? mTimePicker.getCurrentHour() : getResources().getInteger(R.integer.default_hour), mTimePicker != null ? mTimePicker.getCurrentMinute() : getResources().getInteger(R.integer.default_minute)),
+                        getString(R.string.format_room, mBinding.meetingRoom.getSelectedItemPosition() + 1),
                         mBinding.meetingSubject.getText().toString(),
-                        Arrays.asList(mBinding.meetingParticipants.getText().toString().split("\\W+"))
+                        Arrays.asList(mBinding.meetingParticipants.getText().toString().split("\\s"))
                 );
                 Toast.makeText(MeetingAddActivity.this.getApplicationContext(), getString(R.string.add_meeting_toast_create), Toast.LENGTH_SHORT).show();
 
@@ -110,7 +108,6 @@ public class MeetingAddActivity extends AppCompatActivity implements DatePickerD
                     editable.setSpan(span, SpannedLength, editable.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                     SpannedLength = editable.length();
                 }
-                Log.i(TAG, String.format("%s", editable));
             }
         });
     }
@@ -141,13 +138,13 @@ public class MeetingAddActivity extends AppCompatActivity implements DatePickerD
     private void setDate(DatePicker date) {
         Calendar calendar = Calendar.getInstance();
         calendar.set(date.getYear(), date.getMonth(), date.getDayOfMonth());
-        SimpleDateFormat formatter = new SimpleDateFormat("EEEE d MMMM yyyy", Locale.FRANCE);
+        SimpleDateFormat formatter = new SimpleDateFormat(getString(R.string.display_date_format), Locale.FRANCE);
         String output = formatter.format(calendar.getTime());
         mBinding.meetingDate.setText(output);
     }
 
     private void setTime(int hour, int minute) {
-        mBinding.meetingTime.setText(String.format("%02d h %02d", hour, minute));
+        mBinding.meetingTime.setText(getString(R.string.display_format_hour, hour, minute));
     }
 
     private void setSpinner() {

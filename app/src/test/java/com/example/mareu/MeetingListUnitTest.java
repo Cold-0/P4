@@ -3,6 +3,7 @@ package com.example.mareu;
 
 import com.example.mareu.di.DI;
 import com.example.mareu.model.Meeting;
+import com.example.mareu.service.MeetingApiService;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -10,7 +11,6 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 import java.util.Arrays;
-import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -22,33 +22,33 @@ import static org.junit.Assert.assertTrue;
  * Unit test on Neighbour service
  */
 @RunWith(JUnit4.class)
-public class UnitTestList {
+public class MeetingListUnitTest {
 
-    private List<Meeting> mMeetingList;
+    private MeetingApiService mMeetingApiService;
 
     @Before
     public void setup() {
-        mMeetingList = DI.getMeetingList();
+        mMeetingApiService = DI.getNewMeetingApiService();
     }
 
     @Test
     public void getDefaultList() {
-        assertEquals(12, mMeetingList.size());
+        assertEquals(12, mMeetingApiService.getMeetings().size());
     }
 
     @Test
     public void deleteMeetingWithSuccess() {
-        Meeting meetingToDelete = mMeetingList.get(0);
-        mMeetingList.remove(meetingToDelete);
-        assertFalse(mMeetingList.contains(meetingToDelete));
+        Meeting meetingToDelete = mMeetingApiService.getMeetings().get(0);
+        mMeetingApiService.removeMeeting(meetingToDelete);
+        assertFalse(mMeetingApiService.getMeetings().contains(meetingToDelete));
     }
 
     @Test
     public void addMeetingWithSuccess() {
-        int size = mMeetingList.size();
+        int size = mMeetingApiService.getMeetings().size();
         Meeting meetingToAdd = new Meeting("19/07/2020", "08h40", "4", "Test",
                 Arrays.asList("jean@email.com", "lea@email.com", "nina@email.com"));
-        mMeetingList.add(meetingToAdd);
-        assertEquals(mMeetingList.size(), size + 1);
+        mMeetingApiService.createMeeting(meetingToAdd);
+        assertEquals(mMeetingApiService.getMeetings().size(), size + 1);
     }
 }

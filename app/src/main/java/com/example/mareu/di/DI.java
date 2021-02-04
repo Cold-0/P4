@@ -5,7 +5,7 @@ import com.example.mareu.service.MeetingApiServiceDummy;
 
 public class DI {
 
-    private static MeetingApiService meetinApiService = new MeetingApiServiceDummy();
+    private static final MeetingApiService meetinApiService = new MeetingApiServiceDummy();
 
     public static MeetingApiService getMeetingApiService() {
         return meetinApiService;

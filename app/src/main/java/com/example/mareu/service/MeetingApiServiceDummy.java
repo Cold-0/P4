@@ -5,7 +5,7 @@ import com.example.mareu.model.Meeting;
 import java.util.List;
 
 public class MeetingApiServiceDummy implements MeetingApiService {
-    private List<Meeting> mMeetings = MeetingListGeneratorDummy.getNewMeetingList();
+    private final List<Meeting> mMeetings = MeetingListGeneratorDummy.getNewMeetingList();
 
     @Override
     public List<Meeting> getMeetings() {

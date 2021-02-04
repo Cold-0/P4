@@ -18,8 +18,8 @@ public class MeetingListRecyclerViewAdapter extends RecyclerView.Adapter<Meeting
     private static final Random r = new Random();
     private List<Meeting> mValues;
     public FragmentMeetingItemBinding binding;
-    private Context mContext;
-    private IDeleteMeeting mDeleteMeeting;
+    private final Context mContext;
+    private final IDeleteMeeting mDeleteMeeting;
 
     public MeetingListRecyclerViewAdapter(Context context, List<Meeting> items, IDeleteMeeting deleteMeeting) {
         mValues = items;

@@ -8,6 +8,7 @@ import androidx.test.runner.AndroidJUnit4;
 
 import com.example.mareu.di.DI;
 import com.example.mareu.model.Meeting;
+import com.example.mareu.service.MeetingApiService;
 
 import org.hamcrest.Matcher;
 import org.junit.Before;
@@ -28,11 +29,11 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.*;
 
 @RunWith(AndroidJUnit4.class)
-public class ExampleInstrumentedTest {
+public class MeetingListInstrumentedTest {
 
     private final int ITEMS_COUNT = 12;
     private MeetingListActivity mActivity;
-    private List<Meeting> mMeetingList;
+    private MeetingApiService mMeetingApiService;
 
     @Rule
     public ActivityTestRule<MeetingListActivity> mActivityRule =
@@ -41,9 +42,9 @@ public class ExampleInstrumentedTest {
     @Before
     public void setUp() {
         mActivity = mActivityRule.getActivity();
-        mMeetingList = DI.getMeetingList();
+        mMeetingApiService = DI.getMeetingApiService();
         assertThat(mActivity, notNullValue());
-        assertEquals(mMeetingList.size(), ITEMS_COUNT);
+        assertEquals(mMeetingApiService.getMeetings().size(), ITEMS_COUNT);
     }
 
     @Test
