@@ -19,14 +19,12 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.mareu.databinding.ActivityMeetingAddBinding;
-import com.example.mareu.generator.GenerateMeetingList;
 import com.example.mareu.model.Meeting;
 import com.google.android.material.chip.ChipDrawable;
 
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.List;
 import java.util.Locale;
 
 public class MeetingAddActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {

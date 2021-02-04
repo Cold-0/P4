@@ -7,11 +7,9 @@ import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
+import com.example.mareu.callback.IDeleteMeeting;
 import com.example.mareu.databinding.FragmentMeetingItemBinding;
-import com.example.mareu.events.RemoveMeetingEvent;
 import com.example.mareu.model.Meeting;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 import java.util.Random;
@@ -21,10 +19,12 @@ public class MeetingListRecyclerViewAdapter extends RecyclerView.Adapter<Meeting
     private List<Meeting> mValues;
     public FragmentMeetingItemBinding binding;
     private Context mContext;
+    private IDeleteMeeting mDeleteMeeting;
 
-    public MeetingListRecyclerViewAdapter(Context context, List<Meeting> items) {
+    public MeetingListRecyclerViewAdapter(Context context, List<Meeting> items, IDeleteMeeting deleteMeeting) {
         mValues = items;
         mContext = context;
+        mDeleteMeeting = deleteMeeting;
     }
 
     public void setList(List<Meeting> list) {
@@ -32,7 +32,7 @@ public class MeetingListRecyclerViewAdapter extends RecyclerView.Adapter<Meeting
         notifyDataSetChanged();
     }
 
-    public List<Meeting> getList(){
+    public List<Meeting> getList() {
         return mValues;
     }
 
@@ -55,7 +55,7 @@ public class MeetingListRecyclerViewAdapter extends RecyclerView.Adapter<Meeting
         holder.mBinding.participantsMeeting.setText(formatParticipantList(meeting.getParticipants()));
         holder.mBinding.colorMeeting.setColorFilter(getRandomColor());
         holder.mBinding.removeMeeting.setOnClickListener(v -> {
-            EventBus.getDefault().post(new RemoveMeetingEvent(meeting));
+            mDeleteMeeting.deleteMeetingCallback(meeting);
         });
     }
 

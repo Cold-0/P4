@@ -1,4 +1,4 @@
-package com.example.mareu;
+package com.example.mareu.dialog;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -11,8 +11,8 @@ import android.view.LayoutInflater;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.Spinner;
-import android.widget.Toast;
 
+import com.example.mareu.R;
 import com.example.mareu.callback.IFilterCallback;
 import com.example.mareu.databinding.FragmentDialogFilterBinding;
 
@@ -41,7 +41,7 @@ public class FilterDialogFragment extends DialogFragment implements DatePickerDi
         builder.setView(mBinding.getRoot())
                 .setPositiveButton("Ok", (dialog, id) -> {
                     DatePicker picker = mDatePickerDialog.getDatePicker();
-                    mIFilterCallback.onValidate(
+                    mIFilterCallback.onValidateFilter(
                             String.format("%d", mBinding.filterRoom.getSelectedItemPosition()+1),
                             String.format("%02d/%02d/%04d", picker.getDayOfMonth(), picker.getMonth()+1, picker.getYear())
                 );
@@ -49,7 +49,7 @@ public class FilterDialogFragment extends DialogFragment implements DatePickerDi
                 })
                 .setNegativeButton("Reset", (dialog, id) ->
                 {
-                    mIFilterCallback.onReset();
+                    mIFilterCallback.onResetFilter();
                 });
         setSpinner();
         setDatePickerDialog();

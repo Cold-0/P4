@@ -11,27 +11,23 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Filter;
 import android.widget.Toast;
 
+import com.example.mareu.callback.IDeleteMeeting;
 import com.example.mareu.callback.IFilterCallback;
 import com.example.mareu.databinding.ActivityMeetingListBinding;
-import com.example.mareu.generator.GenerateMeetingList;
-import com.example.mareu.events.RemoveMeetingEvent;
+import com.example.mareu.di.DI;
+import com.example.mareu.dialog.FilterDialogFragment;
 import com.example.mareu.model.Meeting;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MeetingListActivity extends AppCompatActivity implements IFilterCallback {
+public class MeetingListActivity extends AppCompatActivity implements IFilterCallback, IDeleteMeeting {
 
     private static final String TAG = "MeetingListActivity";
     RecyclerView mMeetingsRecyclerView;
@@ -71,18 +67,6 @@ public class MeetingListActivity extends AppCompatActivity implements IFilterCal
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-        EventBus.getDefault().register(this);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        EventBus.getDefault().unregister(this);
-    }
-
-    @Override
     protected void onResume() {
         super.onResume();
         mMeetingsRecyclerView.getAdapter().notifyDataSetChanged();
@@ -91,39 +75,13 @@ public class MeetingListActivity extends AppCompatActivity implements IFilterCal
     private void initRecyclerView() {
         Context context = mMeetingsRecyclerView.getContext();
         mMeetingsRecyclerView.setLayoutManager(new LinearLayoutManager(context));
-        mMeetingsList = GenerateMeetingList.generateMeetings();
-        mMeetingsRecyclerView.setAdapter(new MeetingListRecyclerViewAdapter(getApplicationContext(), mMeetingsList));
+        mMeetingsList = DI.getMeetingList();
+        mMeetingsRecyclerView.setAdapter(new MeetingListRecyclerViewAdapter(getApplicationContext(), mMeetingsList, this));
     }
 
     private void setRecyclerViewList(List<Meeting> list) {
         MeetingListRecyclerViewAdapter adapter = (MeetingListRecyclerViewAdapter) mMeetingsRecyclerView.getAdapter();
         adapter.setList(list);
-    }
-
-    @Subscribe
-    public void onRemoveMeeting(RemoveMeetingEvent event) {
-        AlertDialog.Builder adb = new AlertDialog.Builder(this);
-        adb.setCancelable(false);
-        adb.setTitle(getString(R.string.delete_meeting_confirmation_title));
-        adb.setPositiveButton(R.string.delete_meeting_confirm, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                MeetingListRecyclerViewAdapter adapter = (MeetingListRecyclerViewAdapter)mMeetingsRecyclerView.getAdapter();
-                List<Meeting> list = adapter.getList();
-                int index = list.indexOf(event.mMeeting);
-                if( list != mMeetingsList) // Remove from the mMeetingList if the list is filtered
-                    mMeetingsList.remove(event.mMeeting);
-                list.remove(event.mMeeting);
-                adapter.notifyItemRemoved(index);
-
-                Toast.makeText(getApplicationContext(), getString(R.string.delete_meeting_toast), Toast.LENGTH_SHORT).show();
-            }
-        });
-        adb.setNegativeButton(R.string.delete_meeting_cancel, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(getApplicationContext(), getString(R.string.cancel_delete_meeting_toast), Toast.LENGTH_SHORT).show();
-            }
-        });
-        adb.show();
     }
 
     @Override
@@ -149,21 +107,46 @@ public class MeetingListActivity extends AppCompatActivity implements IFilterCal
     }
 
     @Override
-    public void onValidate(String room, String date) {
+    public void onValidateFilter(String room, String date) {
         Toast.makeText(getApplicationContext(), "Validate", Toast.LENGTH_SHORT).show();
         List<Meeting> new_list = new ArrayList<>();
-        for(Meeting meeting : mMeetingsList)
-        {
-            if(meeting.getRoom().equals(room) && meeting.getDate().equals(date))
+        for (Meeting meeting : mMeetingsList) {
+            if (meeting.getRoom().equals(room) && meeting.getDate().equals(date))
                 new_list.add(meeting);
         }
         setRecyclerViewList(new_list);
     }
 
     @Override
-    public void onReset() {
+    public void onResetFilter() {
         setRecyclerViewList(mMeetingsList);
         Toast.makeText(getApplicationContext(), "Reset", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void deleteMeetingCallback(Meeting meeting) {
+        AlertDialog.Builder adb = new AlertDialog.Builder(this);
+        adb.setCancelable(false);
+        adb.setTitle(getString(R.string.delete_meeting_confirmation_title));
+        adb.setPositiveButton(R.string.delete_meeting_confirm, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                MeetingListRecyclerViewAdapter adapter = (MeetingListRecyclerViewAdapter) mMeetingsRecyclerView.getAdapter();
+                List<Meeting> list = adapter.getList();
+                int index = list.indexOf(meeting);
+                if (list != mMeetingsList) // Remove from the mMeetingList if the list is filtered
+                    mMeetingsList.remove(meeting);
+                list.remove(meeting);
+                adapter.notifyItemRemoved(index);
+
+                Toast.makeText(getApplicationContext(), getString(R.string.delete_meeting_toast), Toast.LENGTH_SHORT).show();
+            }
+        });
+        adb.setNegativeButton(R.string.delete_meeting_cancel, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(getApplicationContext(), getString(R.string.cancel_delete_meeting_toast), Toast.LENGTH_SHORT).show();
+            }
+        });
+        adb.show();
     }
 }
 

@@ -1,7 +1,8 @@
 package com.example.mareu;
 
 
-import com.example.mareu.generator.GenerateMeetingList;
+import com.example.mareu.di.DI;
+import com.example.mareu.generator.MeetingListGenerator;
 import com.example.mareu.model.Meeting;
 
 import org.junit.Before;
@@ -28,7 +29,7 @@ public class UnitTestList {
 
     @Before
     public void setup() {
-        mMeetingList = GenerateMeetingList.generateMeetings();
+        mMeetingList = DI.getMeetingList();
     }
 
     @Test

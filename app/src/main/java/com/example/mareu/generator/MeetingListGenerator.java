@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-public abstract class GenerateMeetingList {
+public abstract class MeetingListGenerator {
     public static List<Meeting> DUMMY_MEETINGS = Arrays.asList(
             new Meeting("01/02/2021", "08h40", "1", "Reunion1",
                     Arrays.asList("jean@email.com", "lea@email.com", "nina@email.com")),
