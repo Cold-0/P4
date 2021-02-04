@@ -1,15 +1,12 @@
-package com.example.mareu.generator;
-
-import android.graphics.Color;
+package com.example.mareu.service;
 
 import com.example.mareu.model.Meeting;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 
-public abstract class MeetingListGenerator {
+public abstract class MeetingListGeneratorDummy {
     public static List<Meeting> DUMMY_MEETINGS = Arrays.asList(
             new Meeting("01/02/2021", "08h40", "1", "Reunion1",
                     Arrays.asList("jean@email.com", "lea@email.com", "nina@email.com")),
@@ -37,7 +34,7 @@ public abstract class MeetingListGenerator {
                     Arrays.asList("jean@email.com", "lea@email.com", "nina@email.com", "bob@email.com", "juan@email.com"))
     );
 
-    public static List<Meeting> generateMeetings() {
+    public static List<Meeting> getNewMeetingList() {
         return new ArrayList<>(DUMMY_MEETINGS);
     }
 }

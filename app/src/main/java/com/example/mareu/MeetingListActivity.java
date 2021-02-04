@@ -23,6 +23,7 @@ import com.example.mareu.databinding.ActivityMeetingListBinding;
 import com.example.mareu.di.DI;
 import com.example.mareu.dialog.FilterDialogFragment;
 import com.example.mareu.model.Meeting;
+import com.example.mareu.service.MeetingApiService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +32,7 @@ public class MeetingListActivity extends AppCompatActivity implements IFilterCal
 
     private static final String TAG = "MeetingListActivity";
     RecyclerView mMeetingsRecyclerView;
-    List<Meeting> mMeetingsList;
+    MeetingApiService mMeetingApiService;
     ActivityMeetingListBinding mBinding;
 
     static public final int REQUEST_CREATE_NEW_MEETING = 1;
@@ -75,8 +76,8 @@ public class MeetingListActivity extends AppCompatActivity implements IFilterCal
     private void initRecyclerView() {
         Context context = mMeetingsRecyclerView.getContext();
         mMeetingsRecyclerView.setLayoutManager(new LinearLayoutManager(context));
-        mMeetingsList = DI.getMeetingList();
-        mMeetingsRecyclerView.setAdapter(new MeetingListRecyclerViewAdapter(getApplicationContext(), mMeetingsList, this));
+        mMeetingApiService = DI.getMeetingApiService();
+        mMeetingsRecyclerView.setAdapter(new MeetingListRecyclerViewAdapter(getApplicationContext(), mMeetingApiService.getMeetings(), this));
     }
 
     private void setRecyclerViewList(List<Meeting> list) {
@@ -89,8 +90,8 @@ public class MeetingListActivity extends AppCompatActivity implements IFilterCal
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CREATE_NEW_MEETING && resultCode == RETURN_CODE_MEETING_CREATED && data != null) {
             Meeting meeting = data.getExtras().getParcelable("meeting");
-            mMeetingsList.add(meeting);
-            mMeetingsRecyclerView.getAdapter().notifyItemInserted(mMeetingsList.indexOf(meeting));
+            mMeetingApiService.createMeeting(meeting);
+            mMeetingsRecyclerView.getAdapter().notifyItemInserted(mMeetingApiService.indexOfMeeting(meeting));
         }
     }
 
@@ -110,7 +111,7 @@ public class MeetingListActivity extends AppCompatActivity implements IFilterCal
     public void onValidateFilter(String room, String date) {
         Toast.makeText(getApplicationContext(), "Validate", Toast.LENGTH_SHORT).show();
         List<Meeting> new_list = new ArrayList<>();
-        for (Meeting meeting : mMeetingsList) {
+        for (Meeting meeting : mMeetingApiService.getMeetings()) {
             if (meeting.getRoom().equals(room) && meeting.getDate().equals(date))
                 new_list.add(meeting);
         }
@@ -119,7 +120,7 @@ public class MeetingListActivity extends AppCompatActivity implements IFilterCal
 
     @Override
     public void onResetFilter() {
-        setRecyclerViewList(mMeetingsList);
+        setRecyclerViewList(mMeetingApiService.getMeetings());
         Toast.makeText(getApplicationContext(), "Reset", Toast.LENGTH_SHORT).show();
     }
 
@@ -133,8 +134,8 @@ public class MeetingListActivity extends AppCompatActivity implements IFilterCal
                 MeetingListRecyclerViewAdapter adapter = (MeetingListRecyclerViewAdapter) mMeetingsRecyclerView.getAdapter();
                 List<Meeting> list = adapter.getList();
                 int index = list.indexOf(meeting);
-                if (list != mMeetingsList) // Remove from the mMeetingList if the list is filtered
-                    mMeetingsList.remove(meeting);
+                if (list != mMeetingApiService.getMeetings()) // Remove from the mMeetingList if the list is filtered
+                    mMeetingApiService.removeMeeting(meeting);
                 list.remove(meeting);
                 adapter.notifyItemRemoved(index);
 

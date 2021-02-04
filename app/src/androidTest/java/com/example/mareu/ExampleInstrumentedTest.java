@@ -3,12 +3,10 @@ package com.example.mareu;
 import android.content.Context;
 
 import androidx.test.InstrumentationRegistry;
-import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.runner.AndroidJUnit4;
 
 import com.example.mareu.di.DI;
-import com.example.mareu.generator.MeetingListGenerator;
 import com.example.mareu.model.Meeting;
 
 import org.hamcrest.Matcher;
