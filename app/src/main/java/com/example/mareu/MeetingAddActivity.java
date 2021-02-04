@@ -10,7 +10,6 @@ import android.text.Editable;
 import android.text.Spanned;
 import android.text.TextWatcher;
 import android.text.style.ImageSpan;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;

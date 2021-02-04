@@ -1,4 +1,4 @@
-package com.example.mareu;
+package com.example.mareu.recyclerview;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
+import com.example.mareu.R;
 import com.example.mareu.callback.IDeleteMeeting;
 import com.example.mareu.databinding.FragmentMeetingItemBinding;
 import com.example.mareu.model.Meeting;

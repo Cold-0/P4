@@ -23,6 +23,7 @@ import com.example.mareu.databinding.ActivityMeetingListBinding;
 import com.example.mareu.di.DI;
 import com.example.mareu.dialog.FilterDialogFragment;
 import com.example.mareu.model.Meeting;
+import com.example.mareu.recyclerview.MeetingListRecyclerViewAdapter;
 import com.example.mareu.service.MeetingApiService;
 
 import java.util.ArrayList;
