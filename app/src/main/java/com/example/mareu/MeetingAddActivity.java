@@ -44,32 +44,38 @@ public class MeetingAddActivity extends AppCompatActivity implements DatePickerD
         setDatePickerDialog();
         setTimePickerDialog();
         setChip();
-        mBinding.accept.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DatePicker datePicker = mDatePickerDialog.getDatePicker();
-                Meeting meeting = new Meeting(
-                        getString(R.string.format_date, datePicker.getDayOfMonth(), datePicker.getMonth() + 1, datePicker.getYear()),
-                        getString(R.string.format_hour, mTimePicker != null ? mTimePicker.getCurrentHour() : getResources().getInteger(R.integer.default_hour), mTimePicker != null ? mTimePicker.getCurrentMinute() : getResources().getInteger(R.integer.default_minute)),
-                        getString(R.string.format_room, mBinding.meetingRoom.getSelectedItemPosition() + 1),
-                        mBinding.meetingSubject.getText().toString(),
-                        Arrays.asList(mBinding.meetingParticipants.getText().toString().split("\\s"))
-                );
-                Toast.makeText(MeetingAddActivity.this.getApplicationContext(), getString(R.string.add_meeting_toast_create), Toast.LENGTH_SHORT).show();
+        setButtonsListener();
+    }
 
-                Intent data = new Intent();
-                data.putExtra("meeting", meeting);
-                setResult(MeetingListActivity.RETURN_CODE_MEETING_CREATED, data);
-                finish();
-            }
-        });
-        mBinding.cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MeetingAddActivity.this.finish();
-                Toast.makeText(MeetingAddActivity.this.getApplicationContext(), MeetingAddActivity.this.getString(R.string.add_meeting_toast_cancel), Toast.LENGTH_SHORT).show();
-            }
-        });
+    private void setButtonsListener() {
+        mBinding.accept.setOnClickListener(v -> acceptMeetingCreate());
+        mBinding.cancel.setOnClickListener(v -> cancelMeetingCreate());
+    }
+
+    private void acceptMeetingCreate() {
+        if (mBinding.meetingSubject.getText().toString().isEmpty())
+            Toast.makeText(getApplicationContext(), R.string.subject_cant_be_empty, Toast.LENGTH_SHORT).show();
+        else {
+            DatePicker datePicker = mDatePickerDialog.getDatePicker();
+            Meeting meeting = new Meeting(
+                    getString(R.string.format_date, datePicker.getDayOfMonth(), datePicker.getMonth() + 1, datePicker.getYear()),
+                    getString(R.string.format_hour, mTimePicker != null ? mTimePicker.getCurrentHour() : getResources().getInteger(R.integer.default_hour), mTimePicker != null ? mTimePicker.getCurrentMinute() : getResources().getInteger(R.integer.default_minute)),
+                    getString(R.string.format_room, mBinding.meetingRoom.getSelectedItemPosition() + 1),
+                    mBinding.meetingSubject.getText().toString(),
+                    Arrays.asList(mBinding.meetingParticipants.getText().toString().split("\\s"))
+            );
+            Toast.makeText(MeetingAddActivity.this.getApplicationContext(), getString(R.string.add_meeting_toast_create), Toast.LENGTH_SHORT).show();
+
+            Intent data = new Intent();
+            data.putExtra("meeting", meeting);
+            setResult(MeetingListActivity.RETURN_CODE_MEETING_CREATED, data);
+            finish();
+        }
+    }
+
+    private void cancelMeetingCreate() {
+        MeetingAddActivity.this.finish();
+        Toast.makeText(MeetingAddActivity.this.getApplicationContext(), MeetingAddActivity.this.getString(R.string.add_meeting_toast_cancel), Toast.LENGTH_SHORT).show();
     }
 
     private void setChip() {
@@ -87,16 +93,6 @@ public class MeetingAddActivity extends AppCompatActivity implements DatePickerD
 
             @Override
             public void afterTextChanged(Editable editable) {
-//                if (editable.length() <= SpannedLength) {
-//                    ImageSpan[] toRemoveSpans = editable.getSpans(0, editable.length(), ImageSpan.class);
-//                    if (toRemoveSpans.length > 0)
-//                    {
-//                        int index = toRemoveSpans.length - 1;
-//                        ImageSpan span = toRemoveSpans[index];
-//                        SpannedLength -= (editable.getSpanEnd(span) - editable.getSpanStart(span));
-//                        editable.removeSpan(span);
-//                    }
-//                }
                 if (editable.length() > 0 && (editable.charAt(editable.length() - 1) == ' ' || editable.charAt(editable.length() - 1) == '\n') && editable.length() > SpannedLength) {
                     ChipDrawable chip = ChipDrawable.createFromResource(MeetingAddActivity.this, R.xml.email_chip);
                     chip.setText(editable.subSequence(SpannedLength, editable.length() - 1));
@@ -119,6 +115,7 @@ public class MeetingAddActivity extends AppCompatActivity implements DatePickerD
                 c.get(Calendar.DAY_OF_MONTH)
         );
         mDatePickerDialog.setCancelable(false);
+        mDatePickerDialog.getDatePicker().setMinDate(c.getTimeInMillis());
         setDate(mDatePickerDialog.getDatePicker());
         mBinding.meetingDate.setOnClickListener(v -> {
             mDatePickerDialog.show();

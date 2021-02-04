@@ -1,4 +1,25 @@
 package com.example.mareu.utils;
 
-public class DeleteMeetingViewAction {
+import androidx.test.espresso.UiController;
+import androidx.test.espresso.ViewAction;
+import android.view.View;
+import com.example.mareu.R;
+import org.hamcrest.Matcher;
+
+public class DeleteMeetingViewAction implements ViewAction {
+    @Override
+    public Matcher<View> getConstraints() {
+        return null;
+    }
+
+    @Override
+    public String getDescription() {
+        return "Click on specific button";
+    }
+
+    @Override
+    public void perform(UiController uiController, View view) {
+        View button = view.findViewById(R.id.remove_meeting);
+        button.performClick();
+    }
 }

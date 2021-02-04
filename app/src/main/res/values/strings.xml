@@ -38,4 +38,5 @@
     <string name="validate">Valider</string>
     <string name="display_format_hour">%1$02d h %2$02d</string>
     <string name="display_date_format">EEEE d MMMM yyyy</string>
+    <string name="subject_cant_be_empty">Merci de remplir le champ Sujet</string>
 </resources>

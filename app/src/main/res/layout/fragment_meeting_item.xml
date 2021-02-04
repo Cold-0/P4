@@ -12,45 +12,49 @@
         android:id="@+id/color_meeting"
         android:layout_width="63dp"
         android:layout_height="63dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_baseline_brightness_1_24" />
 
     <TextView
         android:id="@+id/subject_meeting"
-        android:layout_width="274dp"
-        android:layout_height="29dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:layout_marginTop="4dp"
         android:ellipsize="end"
         android:gravity="center_vertical"
         android:maxLines="1"
         android:paddingHorizontal="10dp"
-        android:text="Réunion D - 18h00 - Mario"
         android:textAppearance="?attr/textAppearanceListItem"
         android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/remove_meeting"
         app:layout_constraintStart_toEndOf="@+id/color_meeting"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Réunion D - 18h00 - Mario" />
 
     <TextView
         android:id="@+id/participants_meeting"
-        android:layout_width="274dp"
-        android:layout_height="22dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
+        android:layout_marginEnd="5dp"
         android:layout_marginBottom="8dp"
         android:ellipsize="end"
         android:maxLines="1"
         android:paddingHorizontal="10dp"
-        android:text="john@doe.com, john@doe.com, john@doe.com, john@doe.com, john@doe.com, john@doe.com"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/color_meeting" />
+        app:layout_constraintEnd_toStartOf="@+id/remove_meeting"
+        app:layout_constraintStart_toEndOf="@+id/color_meeting"
+        tools:text="john@doe.com, john@doe.com, john@doe.com, john@doe.com, john@doe.com, john@doe.com" />
 
     <ImageView
         android:id="@+id/remove_meeting"
         android:layout_width="51dp"
         android:layout_height="54dp"
-        android:layout_marginTop="4dp"
         android:layout_marginEnd="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_baseline_delete_24" />

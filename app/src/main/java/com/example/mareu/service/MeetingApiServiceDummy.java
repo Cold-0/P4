@@ -2,6 +2,7 @@ package com.example.mareu.service;
 
 import com.example.mareu.model.Meeting;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MeetingApiServiceDummy implements MeetingApiService {
@@ -25,5 +26,15 @@ public class MeetingApiServiceDummy implements MeetingApiService {
     @Override
     public int indexOfMeeting(Meeting meeting) {
         return mMeetings.indexOf(meeting);
+    }
+
+    @Override
+    public List<Meeting> getFilteredList(String room, String date) {
+        List<Meeting> newFilteredList = new ArrayList<>();
+        for (Meeting meeting : getMeetings()) {
+            if (meeting.getRoom().equals(room) && meeting.getDate().equals(date))
+                newFilteredList.add(meeting);
+        }
+        return newFilteredList;
     }
 }

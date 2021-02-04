@@ -31,9 +31,9 @@ import java.util.List;
 
 public class MeetingListActivity extends AppCompatActivity implements IFilterCallback, IDeleteMeeting {
 
-    RecyclerView mMeetingsRecyclerView;
-    MeetingApiService mMeetingApiService;
-    ActivityMeetingListBinding mBinding;
+    private RecyclerView mMeetingsRecyclerView;
+    private MeetingApiService mMeetingApiService;
+    private ActivityMeetingListBinding mBinding;
 
     static public final int REQUEST_CREATE_NEW_MEETING = 1;
     static public final int RETURN_CODE_MEETING_CREATED = 2;
@@ -51,12 +51,9 @@ public class MeetingListActivity extends AppCompatActivity implements IFilterCal
     }
 
     private void initButtons() {
-        mBinding.addMeetingButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MeetingListActivity.this, MeetingAddActivity.class);
-                MeetingListActivity.this.startActivityForResult(intent, REQUEST_CREATE_NEW_MEETING);
-            }
+        mBinding.addMeetingButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MeetingListActivity.this, MeetingAddActivity.class);
+            startActivityForResult(intent, REQUEST_CREATE_NEW_MEETING);
         });
     }
 
@@ -65,12 +62,6 @@ public class MeetingListActivity extends AppCompatActivity implements IFilterCal
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
         return true;
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        mMeetingsRecyclerView.getAdapter().notifyDataSetChanged();
     }
 
     private void initRecyclerView() {
@@ -109,19 +100,15 @@ public class MeetingListActivity extends AppCompatActivity implements IFilterCal
 
     @Override
     public void onValidateFilter(String room, String date) {
-        Toast.makeText(getApplicationContext(), getString(R.string.validate), Toast.LENGTH_SHORT).show();
-        List<Meeting> new_list = new ArrayList<>();
-        for (Meeting meeting : mMeetingApiService.getMeetings()) {
-            if (meeting.getRoom().equals(room) && meeting.getDate().equals(date))
-                new_list.add(meeting);
-        }
-        setRecyclerViewList(new_list);
+        Toast.makeText(getApplicationContext(), R.string.validate, Toast.LENGTH_SHORT).show();
+
+        setRecyclerViewList(mMeetingApiService.getFilteredList(room, date));
     }
 
     @Override
     public void onResetFilter() {
         setRecyclerViewList(mMeetingApiService.getMeetings());
-        Toast.makeText(getApplicationContext(), getString(R.string.reset), Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), R.string.reset, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -129,23 +116,20 @@ public class MeetingListActivity extends AppCompatActivity implements IFilterCal
         AlertDialog.Builder adb = new AlertDialog.Builder(this);
         adb.setCancelable(false);
         adb.setTitle(getString(R.string.delete_meeting_confirmation_title));
-        adb.setPositiveButton(R.string.delete_meeting_confirm, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                MeetingListRecyclerViewAdapter adapter = (MeetingListRecyclerViewAdapter) mMeetingsRecyclerView.getAdapter();
-                List<Meeting> list = adapter.getList();
-                int index = list.indexOf(meeting);
-                if (list != mMeetingApiService.getMeetings()) // Remove from the mMeetingList if the list is filtered
-                    mMeetingApiService.removeMeeting(meeting);
-                list.remove(meeting);
-                adapter.notifyItemRemoved(index);
+        adb.setPositiveButton(R.string.delete_meeting_confirm, (dialog, which) -> {
+            MeetingListRecyclerViewAdapter adapter = (MeetingListRecyclerViewAdapter) mMeetingsRecyclerView.getAdapter();
+            List<Meeting> list = adapter.getList();
+            int index = list.indexOf(meeting);
+            if (list != mMeetingApiService.getMeetings()) // Remove from the mMeetingList if the list is filtered
+                mMeetingApiService.removeMeeting(meeting);
+            list.remove(meeting);
+            adapter.notifyItemRemoved(index);
 
-                Toast.makeText(getApplicationContext(), getString(R.string.delete_meeting_toast), Toast.LENGTH_SHORT).show();
-            }
+            Toast.makeText(getApplicationContext(), getString(R.string.delete_meeting_toast), Toast.LENGTH_SHORT).show();
         });
-        adb.setNegativeButton(R.string.delete_meeting_cancel, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(getApplicationContext(), getString(R.string.cancel_delete_meeting_toast), Toast.LENGTH_SHORT).show();
-            }
+        adb.setNegativeButton(R.string.delete_meeting_cancel, (dialog, which) ->
+        {
+            Toast.makeText(getApplicationContext(), getString(R.string.cancel_delete_meeting_toast), Toast.LENGTH_SHORT).show();
         });
         adb.show();
     }

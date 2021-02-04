@@ -29,8 +29,11 @@ public class MeetingListRecyclerViewAdapter extends RecyclerView.Adapter<Meeting
     }
 
     public void setList(List<Meeting> list) {
-        mValues = list;
-        notifyDataSetChanged();
+        if (list != mValues)
+        {
+            mValues = list;
+            notifyDataSetChanged();
+        }
     }
 
     public List<Meeting> getList() {

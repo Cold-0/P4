@@ -10,7 +10,6 @@ import androidx.test.runner.AndroidJUnit4;
 import com.example.mareu.MeetingListActivity;
 import com.example.mareu.R;
 import com.example.mareu.di.DI;
-import com.example.mareu.model.Meeting;
 import com.example.mareu.service.MeetingApiService;
 
 import org.hamcrest.Matcher;
@@ -20,13 +19,12 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.util.List;
-
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.*;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static com.example.mareu.utils.RecyclerViewItemCountAssertion.withItemCount;
 import static org.hamcrest.core.AllOf.allOf;
 import static org.hamcrest.core.IsNull.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -74,7 +72,7 @@ public class MeetingListInstrumentedTest {
         Matcher matcher = allOf(withId(R.id.meeting_list), isDisplayed());
 
         // Given : We remove the element at position 2
-        //onView(matcher).check(withItemCount(ITEMS_COUNT));
+        onView(matcher).check(withItemCount(ITEMS_COUNT));
         // When perform a click on a delete icon
         //onView(matcher).perform(RecyclerViewActions.actionOnItemAtPosition(1, new DeleteViewAction()));
         // Then : the number of element is 11

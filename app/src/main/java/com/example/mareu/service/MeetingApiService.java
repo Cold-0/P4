@@ -10,5 +10,6 @@ public interface MeetingApiService {
     void createMeeting(Meeting meeting);
     void removeMeeting(Meeting meeting);
     int indexOfMeeting(Meeting meeting);
+    List<Meeting> getFilteredList(String room, String date);
 }
 

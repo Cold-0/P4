@@ -51,4 +51,11 @@ public class MeetingListUnitTest {
         mMeetingApiService.createMeeting(meetingToAdd);
         assertEquals(mMeetingApiService.getMeetings().size(), size + 1);
     }
+
+    @Test
+    public void filterListWithSuccess() {
+        int size = mMeetingApiService.getMeetings().size();
+
+        assertEquals(mMeetingApiService.getMeetings().size(), size + 1);
+    }
 }
