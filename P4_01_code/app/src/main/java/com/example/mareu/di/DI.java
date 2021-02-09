@@ -5,10 +5,10 @@ import com.example.mareu.service.MeetingApiServiceDummy;
 
 public class DI {
 
-    private static final MeetingApiService meetinApiService = new MeetingApiServiceDummy();
+    private static final MeetingApiService meetingApiService = new MeetingApiServiceDummy();
 
     public static MeetingApiService getMeetingApiService() {
-        return meetinApiService;
+        return meetingApiService;
     }
 
     public static MeetingApiService getNewMeetingApiService() {

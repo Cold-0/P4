@@ -36,18 +36,18 @@ public class FilterDialogFragment extends DialogFragment implements DatePickerDi
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         mBinding = FragmentDialogFilterBinding.inflate(LayoutInflater.from(getContext()));
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setTitle("Choisir un filtre");
+        builder.setTitle(R.string.choose_filter);
         builder.setCancelable(false);
         builder.setView(mBinding.getRoot())
-                .setPositiveButton("Ok", (dialog, id) -> {
+                .setPositiveButton(R.string.ok, (dialog, id) -> {
                     DatePicker picker = mDatePickerDialog.getDatePicker();
                     mIFilterCallback.onValidateFilter(
-                            String.format("%d", mBinding.filterRoom.getSelectedItemPosition()+1),
-                            String.format("%02d/%02d/%04d", picker.getDayOfMonth(), picker.getMonth()+1, picker.getYear())
+                            String.valueOf(mBinding.filterRoom.getSelectedItemPosition()+1),
+                            getString(R.string.format_date, picker.getDayOfMonth(), picker.getMonth()+1, picker.getYear())
                 );
 
                 })
-                .setNegativeButton("Reset", (dialog, id) ->
+                .setNegativeButton(R.string.reset, (dialog, id) ->
                 {
                     mIFilterCallback.onResetFilter();
                 });
@@ -82,7 +82,7 @@ public class FilterDialogFragment extends DialogFragment implements DatePickerDi
     private void setDate(DatePicker date) {
         Calendar calendar = Calendar.getInstance();
         calendar.set(date.getYear(), date.getMonth(), date.getDayOfMonth());
-        SimpleDateFormat formatter = new SimpleDateFormat("EEEE d MMMM yyyy", Locale.FRANCE);
+        SimpleDateFormat formatter = new SimpleDateFormat(getString(R.string.display_date_format), Locale.FRANCE);
         String output = formatter.format(calendar.getTime());
         mBinding.filterDate.setText(output);
     }

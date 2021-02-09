@@ -60,7 +60,7 @@ public class MeetingListInstrumentedTest {
      * We ensure that our recyclerview is displaying at least on item
      */
     @Test
-    public void meetinList_shouldNotBeEmpty() {
+    public void meetingListShouldNotBeEmpty() {
         onView(AllOf.allOf(ViewMatchers.withId(R.id.meeting_list), isDisplayed())).check(matches(hasMinimumChildCount(1)));
     }
 

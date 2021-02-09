@@ -15,7 +15,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_baseline_brightness_1_24" />
+        app:srcCompat="@drawable/ic_baseline_brightness_1_24"
+        android:contentDescription="@null" />
 
     <TextView
         android:id="@+id/subject_meeting"
@@ -57,6 +58,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_baseline_delete_24" />
+        app:srcCompat="@drawable/ic_baseline_delete_24"
+        android:contentDescription="@string/description_button_to_delete_meeting" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -13,7 +13,7 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
-    <style name="ChipTextApperance" parent="TextAppearance.MaterialComponents.Chip">
+    <style name="ChipTextAppearance" parent="TextAppearance.MaterialComponents.Chip">
         <item name="android:textColor">@android:color/white</item>
     </style>
 </resources>

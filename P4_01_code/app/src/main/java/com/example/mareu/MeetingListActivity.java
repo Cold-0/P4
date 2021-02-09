@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -26,7 +25,6 @@ import com.example.mareu.model.Meeting;
 import com.example.mareu.recyclerview.MeetingListRecyclerViewAdapter;
 import com.example.mareu.service.MeetingApiService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MeetingListActivity extends AppCompatActivity implements IFilterCallback, IDeleteMeeting {
@@ -116,7 +114,7 @@ public class MeetingListActivity extends AppCompatActivity implements IFilterCal
         AlertDialog.Builder adb = new AlertDialog.Builder(this);
         adb.setCancelable(false);
         adb.setTitle(getString(R.string.delete_meeting_confirmation_title));
-        adb.setPositiveButton(R.string.delete_meeting_confirm, (dialog, which) -> {
+        adb.setPositiveButton(R.string.ok, (dialog, which) -> {
             MeetingListRecyclerViewAdapter adapter = (MeetingListRecyclerViewAdapter) mMeetingsRecyclerView.getAdapter();
             List<Meeting> list = adapter.getList();
             int index = list.indexOf(meeting);

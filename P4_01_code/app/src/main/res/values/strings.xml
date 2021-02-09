@@ -10,13 +10,13 @@
     <string name="participants">Participants</string>
     <string name="delete_meeting_toast">Réunion supprimée</string>
     <string name="add_meeting_toast_create">Réunion créé</string>
-    <string name="add_meeting_toast_cancel">Création de réunion annulé</string>
-    <string name="cancel_delete_meeting_toast">Réunion conservé</string>
+    <string name="add_meeting_toast_cancel">Création de réunion annulée</string>
+    <string name="cancel_delete_meeting_toast">Réunion conservée</string>
     <string name="delete_meeting_confirmation_title">Voulez-vous vraiment supprimer cette réunion?</string>
-    <string name="delete_meeting_confirm">OK</string>
+    <string name="ok">OK</string>
     <string name="delete_meeting_cancel">Annuler</string>
     <string name="meeting_add_change_date">Changer la date</string>
-    <string name="actionbar_title_meeting_list">Liste réunions</string>
+    <string name="actionbar_title_meeting_list">Liste des réunions</string>
     <string name="actionbar_title_meeting_add">Ajouter une réunion</string>
     <string name="filter">Filtrer</string>
     <string-array name="meeting_room_names_array">
@@ -39,4 +39,6 @@
     <string name="display_format_hour">%1$02d h %2$02d</string>
     <string name="display_date_format">EEEE d MMMM yyyy</string>
     <string name="subject_cant_be_empty">Merci de remplir le champ Sujet</string>
+    <string name="choose_filter">Choisir un filtre</string>
+    <string name="description_button_to_delete_meeting">Bouton pour supprimer la reunion</string>
 </resources>
