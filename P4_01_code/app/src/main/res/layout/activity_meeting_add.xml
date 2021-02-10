@@ -37,11 +37,11 @@
         android:layout_marginTop="24dp"
         android:gravity="center_horizontal"
         android:orientation="horizontal"
-        android:text="Changer l'heure"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/meetingRoom" />
+        app:layout_constraintTop_toBottomOf="@+id/meetingRoom"
+        tools:text="Changer l'heure" />
 
     <Button
         android:id="@+id/meetingDate"
@@ -50,17 +50,20 @@
         android:layout_marginTop="24dp"
         android:gravity="center_horizontal"
         android:orientation="horizontal"
-        android:text="@string/meeting_add_change_date"
         app:layout_constraintTop_toBottomOf="@+id/meetingTime"
-        tools:layout_editor_absoluteX="50dp" />
+        tools:layout_editor_absoluteX="50dp"
+        tools:text="@string/meeting_add_change_date" />
 
     <EditText
-        android:id="@+id/meeting_participants"
+        android:id="@+id/meetingParticipants"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="8dp"
+        android:autofillHints="emailAddress"
+        android:hint="@null"
+        android:inputType="textEmailAddress"
         android:singleLine="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"

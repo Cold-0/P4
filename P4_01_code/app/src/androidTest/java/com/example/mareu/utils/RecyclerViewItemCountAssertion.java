@@ -8,8 +8,7 @@ import androidx.test.espresso.ViewAssertion;
 
 import org.hamcrest.Matcher;
 import org.hamcrest.Matchers;
-import org.junit.Assert;
-
+import org.hamcrest.MatcherAssert;
 public class RecyclerViewItemCountAssertion implements ViewAssertion {
     private final Matcher<Integer> matcher;
 
@@ -33,6 +32,6 @@ public class RecyclerViewItemCountAssertion implements ViewAssertion {
 
         RecyclerView recyclerView = (RecyclerView) view;
         RecyclerView.Adapter adapter = recyclerView.getAdapter();
-        Assert.assertThat(adapter.getItemCount(), matcher);
+        MatcherAssert.assertThat(adapter.getItemCount(), matcher);
     }
 }

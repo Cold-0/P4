@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public abstract class MeetingListGeneratorDummy {
-    public static List<Meeting> DUMMY_MEETINGS = Arrays.asList(
+    final private static List<Meeting> DUMMY_MEETINGS = Arrays.asList(
             new Meeting("01/02/2021", "08h40", "1", "Reunion1",
                     Arrays.asList("jean@email.com", "lea@email.com", "nina@email.com")),
             new Meeting("01/02/2021", "14h00", "2", "Reunion2",
