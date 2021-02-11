@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.mareu">
+    package="com.openclassroom.mareu">
 
     <application
         android:icon="@mipmap/ic_launcher"
@@ -9,9 +9,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Mareu">
         <activity
-            android:name=".MeetingAddActivity"
+            android:name="com.openclassroom.mareu.MeetingAddActivity"
             android:theme="@style/Theme.Mareu" />
-        <activity android:name=".MeetingListActivity">
+        <activity android:name="com.openclassroom.mareu.MeetingListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -1,4 +1,4 @@
-package com.example.mareu;
+package com.openclassroom.mareu;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -16,14 +16,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.mareu.callback.IDeleteMeeting;
-import com.example.mareu.callback.IFilterCallback;
-import com.example.mareu.databinding.ActivityMeetingListBinding;
-import com.example.mareu.di.DI;
-import com.example.mareu.dialog.FilterDialogFragment;
-import com.example.mareu.model.Meeting;
-import com.example.mareu.recyclerview.MeetingListRecyclerViewAdapter;
-import com.example.mareu.service.MeetingApiService;
+import com.openclassroom.mareu.callback.IDeleteMeeting;
+import com.openclassroom.mareu.callback.IFilterCallback;
+import com.openclassroom.mareu.databinding.ActivityMeetingListBinding;
+import com.openclassroom.mareu.di.DI;
+import com.openclassroom.mareu.dialog.FilterDialogFragment;
+import com.openclassroom.mareu.model.Meeting;
+import com.openclassroom.mareu.recyclerview.MeetingListRecyclerViewAdapter;
+import com.openclassroom.mareu.service.MeetingApiService;
 
 import java.util.List;
 

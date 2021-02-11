@@ -1,22 +1,21 @@
-package com.example.mareu.list;
+package com.openclassroom.mareu.list;
 
 import android.content.Context;
 import android.widget.DatePicker;
 
-import androidx.test.InstrumentationRegistry;
 import androidx.test.espresso.contrib.PickerActions;
 import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.runner.AndroidJUnit4;
 
-import com.example.mareu.MeetingListActivity;
-import com.example.mareu.R;
-import com.example.mareu.di.DI;
-import com.example.mareu.model.Meeting;
-import com.example.mareu.service.MeetingApiService;
-import com.example.mareu.utils.CheckMeetingSubject;
-import com.example.mareu.utils.DeleteMeetingViewAction;
+import com.openclassroom.mareu.MeetingListActivity;
+import com.openclassroom.mareu.R;
+import com.openclassroom.mareu.di.DI;
+import com.openclassroom.mareu.model.Meeting;
+import com.openclassroom.mareu.service.MeetingApiService;
+import com.openclassroom.mareu.utils.CheckMeetingSubject;
+import com.openclassroom.mareu.utils.DeleteMeetingViewAction;
 
 import org.hamcrest.Matcher;
 import org.hamcrest.Matchers;
@@ -37,7 +36,7 @@ import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.*;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static com.example.mareu.utils.RecyclerViewItemCountAssertion.withItemCount;
+import static com.openclassroom.mareu.utils.RecyclerViewItemCountAssertion.withItemCount;
 import static org.hamcrest.core.AllOf.allOf;
 import static org.hamcrest.core.IsNull.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -64,7 +63,7 @@ public class MeetingListInstrumentedTest {
     public void meetingList_CheckAppContext() {
         // Context of the app under test.
         Context appContext = getInstrumentation().getTargetContext();
-        assertEquals("com.example.mareu", appContext.getPackageName());
+        assertEquals("com.openclassroom.mareu", appContext.getPackageName());
     }
 
     /**

@@ -1,4 +1,4 @@
-package com.example.mareu.utils;
+package com.openclassroom.mareu.utils;
 
 import android.view.View;
 
@@ -9,6 +9,7 @@ import androidx.test.espresso.ViewAssertion;
 import org.hamcrest.Matcher;
 import org.hamcrest.Matchers;
 import org.hamcrest.MatcherAssert;
+
 public class RecyclerViewItemCountAssertion implements ViewAssertion {
     private final Matcher<Integer> matcher;
 

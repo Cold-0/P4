@@ -1,9 +1,9 @@
-package com.example.mareu;
+package com.openclassroom.mareu;
 
 
-import com.example.mareu.di.DI;
-import com.example.mareu.model.Meeting;
-import com.example.mareu.service.MeetingApiService;
+import com.openclassroom.mareu.di.DI;
+import com.openclassroom.mareu.model.Meeting;
+import com.openclassroom.mareu.service.MeetingApiService;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -49,13 +49,6 @@ public class MeetingListUnitTest {
         Meeting meetingToAdd = new Meeting("19/07/2020", "08h40", "4", "Test",
                 Arrays.asList("jean@email.com", "lea@email.com", "nina@email.com"));
         mMeetingApiService.createMeeting(meetingToAdd);
-        assertEquals(mMeetingApiService.getMeetings().size(), size + 1);
-    }
-
-    @Test
-    public void filterListWithSuccess() {
-        int size = mMeetingApiService.getMeetings().size();
-
         assertEquals(mMeetingApiService.getMeetings().size(), size + 1);
     }
 }

@@ -12,11 +12,11 @@
         android:id="@+id/color_meeting"
         android:layout_width="63dp"
         android:layout_height="63dp"
+        android:contentDescription="@null"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_baseline_brightness_1_24"
-        android:contentDescription="@null" />
+        app:srcCompat="@drawable/ic_baseline_brightness_1_24" />
 
     <TextView
         android:id="@+id/subject_meeting"
@@ -55,10 +55,10 @@
         android:layout_width="51dp"
         android:layout_height="54dp"
         android:layout_marginEnd="4dp"
+        android:contentDescription="@string/description_button_to_delete_meeting"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_baseline_delete_24"
-        android:contentDescription="@string/description_button_to_delete_meeting" />
+        app:srcCompat="@drawable/ic_baseline_delete_24" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

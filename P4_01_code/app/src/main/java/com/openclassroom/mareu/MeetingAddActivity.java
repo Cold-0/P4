@@ -1,4 +1,4 @@
-package com.example.mareu;
+package com.openclassroom.mareu;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,8 +17,8 @@ import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.example.mareu.databinding.ActivityMeetingAddBinding;
-import com.example.mareu.model.Meeting;
+import com.openclassroom.mareu.databinding.ActivityMeetingAddBinding;
+import com.openclassroom.mareu.model.Meeting;
 import com.google.android.material.chip.ChipDrawable;
 
 import java.text.SimpleDateFormat;

@@ -1,4 +1,4 @@
-package com.example.mareu.recyclerview;
+package com.openclassroom.mareu.recyclerview;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -7,10 +7,10 @@ import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import com.example.mareu.R;
-import com.example.mareu.callback.IDeleteMeeting;
-import com.example.mareu.databinding.FragmentMeetingItemBinding;
-import com.example.mareu.model.Meeting;
+import com.openclassroom.mareu.R;
+import com.openclassroom.mareu.callback.IDeleteMeeting;
+import com.openclassroom.mareu.databinding.FragmentMeetingItemBinding;
+import com.openclassroom.mareu.model.Meeting;
 
 import java.util.List;
 import java.util.Random;
@@ -29,8 +29,7 @@ public class MeetingListRecyclerViewAdapter extends RecyclerView.Adapter<Meeting
     }
 
     public void setList(List<Meeting> list) {
-        if (list != mValues)
-        {
+        if (list != mValues) {
             mValues = list;
             notifyDataSetChanged();
         }

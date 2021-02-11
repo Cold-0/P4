@@ -1,17 +1,15 @@
-package com.example.mareu.utils;
+package com.openclassroom.mareu.utils;
 
 import androidx.test.espresso.UiController;
 import androidx.test.espresso.ViewAction;
+
 import android.view.View;
-import com.example.mareu.R;
+
+import com.openclassroom.mareu.R;
+
 import org.hamcrest.Matcher;
 
-import java.util.ArrayList;
-
-import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
-import static androidx.test.espresso.assertion.ViewAssertions.matches;
-import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
 public class DeleteMeetingViewAction implements ViewAction {

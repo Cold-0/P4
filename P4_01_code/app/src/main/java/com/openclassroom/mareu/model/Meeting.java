@@ -1,6 +1,5 @@
-package com.example.mareu.model;
+package com.openclassroom.mareu.model;
 
-import android.graphics.Color;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -56,7 +55,7 @@ public class Meeting implements Parcelable {
     public void setTime(String time) {
         mTime = time;
     }
-    
+
     public String getRoom() {
         return mRoom;
     }
