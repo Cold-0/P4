@@ -1,5 +1,6 @@
 package com.openclassroom.mareu.recyclerview;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
@@ -39,8 +40,9 @@ public class MeetingListRecyclerViewAdapter extends RecyclerView.Adapter<Meeting
         return mValues;
     }
 
+    @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new ViewHolder(
                 FragmentMeetingItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false)
         );

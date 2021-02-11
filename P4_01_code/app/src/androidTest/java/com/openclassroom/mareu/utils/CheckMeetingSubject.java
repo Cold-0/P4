@@ -10,9 +10,6 @@ import com.openclassroom.mareu.R;
 
 import org.hamcrest.Matcher;
 
-import static androidx.test.espresso.action.ViewActions.click;
-import static androidx.test.espresso.matcher.ViewMatchers.withText;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class CheckMeetingSubject implements ViewAction {

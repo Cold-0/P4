@@ -28,11 +28,11 @@ import org.junit.runner.RunWith;
 import java.util.List;
 
 import static androidx.test.InstrumentationRegistry.getInstrumentation;
-import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.replaceText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.RootMatchers.isDialog;
 import static androidx.test.espresso.matcher.ViewMatchers.*;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
@@ -45,7 +45,6 @@ import static org.junit.Assert.*;
 @RunWith(AndroidJUnit4.class)
 public class MeetingListInstrumentedTest {
 
-    private MeetingListActivity mActivity;
     private MeetingApiService mMeetingApiService;
 
     @Rule
@@ -54,9 +53,9 @@ public class MeetingListInstrumentedTest {
 
     @Before
     public void setUp() {
-        mActivity = mActivityRule.getActivity();
+        MeetingListActivity activity = mActivityRule.getActivity();
         mMeetingApiService = DI.getMeetingApiService();
-        assertThat(mActivity, notNullValue());
+        assertThat(activity, notNullValue());
     }
 
     @Test
@@ -93,10 +92,8 @@ public class MeetingListInstrumentedTest {
         int size = mMeetingApiService.getMeetings().size();
         // Given : We remove the element at position 2
         onView(matcher).check(withItemCount(size));
-        // When perform a click on a delete icon
         onView(matcher).perform(RecyclerViewActions.actionOnItemAtPosition(1, new DeleteMeetingViewAction()));
-        //onView(withText(R.string.ok)).check(matches(isDisplayed()));
-        onData(withText(R.string.ok)).perform(click());
+        onView(withId(android.R.id.button1)).inRoot(isDialog()).check(matches(isDisplayed())).perform(click());
         onView(matcher).check(withItemCount(size - 1));
     }
 
@@ -137,8 +134,25 @@ public class MeetingListInstrumentedTest {
         onView(allOf(withId(R.id.filterDate))).perform(click());
         onView(allOf(withClassName(Matchers.equalTo(DatePicker.class.getName())))).perform(PickerActions.setDate(2021, 2, 1));
         onView(allOf(withText("OK"))).perform(click());
-        onView(allOf(withText(R.string.ok))).perform(click());
 
+        onView(allOf(withText(R.string.ok))).perform(click());
         onView(allOf(withId(R.id.meeting_list), isDisplayed())).check(withItemCount(1));
+    }
+
+    /**
+     * Check filter work
+     */
+    @Test
+    public void meetingList_FilterMeetingListReset() {
+        // Click on the filter icon
+        onView(allOf(withId(R.id.filter_menu))).perform(click());
+        onView(allOf(withId(R.id.filterDate))).perform(click());
+        onView(allOf(withClassName(Matchers.equalTo(DatePicker.class.getName())))).perform(PickerActions.setDate(2021, 2, 1));
+        onView(allOf(withText("OK"))).perform(click());
+        onView(allOf(withText(R.string.ok))).perform(click());
+        onView(allOf(withId(R.id.meeting_list), isDisplayed())).check(withItemCount(1));
+        onView(allOf(withId(R.id.filter_menu))).perform(click());
+        onView(allOf(withText(R.string.reset))).perform(click());
+        onView(allOf(withId(R.id.meeting_list), isDisplayed())).check(withItemCount(mMeetingApiService.getMeetings().size()));
     }
 }

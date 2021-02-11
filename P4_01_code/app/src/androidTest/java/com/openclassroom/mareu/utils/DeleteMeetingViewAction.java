@@ -9,9 +9,6 @@ import com.openclassroom.mareu.R;
 
 import org.hamcrest.Matcher;
 
-import static androidx.test.espresso.action.ViewActions.click;
-import static androidx.test.espresso.matcher.ViewMatchers.withText;
-
 public class DeleteMeetingViewAction implements ViewAction {
     @Override
     public Matcher<View> getConstraints() {

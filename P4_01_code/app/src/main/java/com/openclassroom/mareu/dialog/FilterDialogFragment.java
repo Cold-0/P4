@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 
@@ -32,6 +33,7 @@ public class FilterDialogFragment extends DialogFragment implements DatePickerDi
         return returned;
     }
 
+    @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         mBinding = FragmentDialogFilterBinding.inflate(LayoutInflater.from(getContext()));
@@ -48,9 +50,7 @@ public class FilterDialogFragment extends DialogFragment implements DatePickerDi
 
                 })
                 .setNegativeButton(R.string.reset, (dialog, id) ->
-                {
-                    mIFilterCallback.onResetFilter();
-                });
+                        mIFilterCallback.onResetFilter());
         setSpinner();
         setDatePickerDialog();
         setCancelable(false);
@@ -66,17 +66,15 @@ public class FilterDialogFragment extends DialogFragment implements DatePickerDi
     }
 
     private void setDatePickerDialog() {
-        Calendar c = Calendar.getInstance();
+        Calendar calendar = Calendar.getInstance();
         mDatePickerDialog = new DatePickerDialog(getContext(), FilterDialogFragment.this,
-                c.get(Calendar.YEAR),
-                c.get(Calendar.MONTH),
-                c.get(Calendar.DAY_OF_MONTH)
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH)
         );
         mDatePickerDialog.setCancelable(false);
         setDate(mDatePickerDialog.getDatePicker());
-        mBinding.filterDate.setOnClickListener(v -> {
-            mDatePickerDialog.show();
-        });
+        mBinding.filterDate.setOnClickListener(v -> mDatePickerDialog.show());
     }
 
     private void setDate(DatePicker date) {

@@ -108,27 +108,23 @@ public class MeetingAddActivity extends AppCompatActivity implements DatePickerD
     }
 
     private void setDatePickerDialog() {
-        Calendar c = Calendar.getInstance();
+        Calendar calendar = Calendar.getInstance();
         mDatePickerDialog = new DatePickerDialog(this, MeetingAddActivity.this,
-                c.get(Calendar.YEAR),
-                c.get(Calendar.MONTH),
-                c.get(Calendar.DAY_OF_MONTH)
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH)
         );
         mDatePickerDialog.setCancelable(false);
-        mDatePickerDialog.getDatePicker().setMinDate(c.getTimeInMillis());
+        mDatePickerDialog.getDatePicker().setMinDate(calendar.getTimeInMillis());
         setDate(mDatePickerDialog.getDatePicker());
-        mBinding.meetingDate.setOnClickListener(v -> {
-            mDatePickerDialog.show();
-        });
+        mBinding.meetingDate.setOnClickListener(v -> mDatePickerDialog.show());
     }
 
     private void setTimePickerDialog() {
         mTimePickerDialog = new TimePickerDialog(this, MeetingAddActivity.this, getResources().getInteger(R.integer.default_hour), getResources().getInteger(R.integer.default_minute), true);
         mTimePickerDialog.setCancelable(false);
         setTime(getResources().getInteger(R.integer.default_hour), getResources().getInteger(R.integer.default_minute));
-        mBinding.meetingTime.setOnClickListener(v -> {
-            mTimePickerDialog.show();
-        });
+        mBinding.meetingTime.setOnClickListener(v -> mTimePickerDialog.show());
     }
 
     private void setDate(DatePicker date) {

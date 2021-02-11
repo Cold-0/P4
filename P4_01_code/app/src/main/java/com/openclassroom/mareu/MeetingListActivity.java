@@ -126,9 +126,7 @@ public class MeetingListActivity extends AppCompatActivity implements IFilterCal
             Toast.makeText(getApplicationContext(), getString(R.string.delete_meeting_toast), Toast.LENGTH_SHORT).show();
         });
         adb.setNegativeButton(R.string.delete_meeting_cancel, (dialog, which) ->
-        {
-            Toast.makeText(getApplicationContext(), getString(R.string.cancel_delete_meeting_toast), Toast.LENGTH_SHORT).show();
-        });
+                Toast.makeText(getApplicationContext(), getString(R.string.cancel_delete_meeting_toast), Toast.LENGTH_SHORT).show());
         adb.show();
     }
 }
